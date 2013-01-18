@@ -5,12 +5,16 @@
  * you must retrieve the redmineKey from your personal Redmine page.
  */
 
-var redmineKey = "";//TODO insert your redmineKey
+var statusOngoing = "2";
+var lowPriority = "3";
+var normalPriority = "4";
+var urgentPriority = "6";
+var immediatePriority = "7";
 
 function retrieveInformation() {
     $.ajax({
         url: 'http://redmine.antea.bogus/issues.json',
-        data: {'key': redmineKey, 'status_id': '2'}
+        data: {'key': redmineKey, 'status_id': statusOngoing}
     }).done(function(response) {
         var issues = response.issues;
         for (var i = 0; i < issues.length; i++) {
@@ -18,7 +22,7 @@ function retrieveInformation() {
             var subject = issues[i].subject;
             var project = issues[i].project.name;
             var priority = issues[i].priority.id;
-            $("#redmineUl").append("<li style = "+ colorPriority(priority)+">Project: <strong>" +
+            $("#redmineUl").append("<li style = " + colorPriority(priority) + ">Project: <strong>" +
                     project + "</strong> : <strong>" + subject + "</strong> assigned to <strong>" +
                     nameDeveloper + "</strong></li>");
         }
@@ -26,19 +30,15 @@ function retrieveInformation() {
 }
 
 function colorPriority(num) {
-    if (num === 3) {
-        return "\"color : lightskyblue\"";
-    } else {
-        if (num === 4) {
+    switch (num) {
+        case eval(lowPriority) :
+            return "\"color : lightskyblue\"";
+        case eval(normalPriority) :
             return "\"color : lightgreen\"";
-        } else {
-            if (num === 6) {
-                return "\"color : orange\"";
-            } else {
-                return "\"color : red\"";
-            }
-        }
+        case eval(urgentPriority) :
+            return "\"color : orange\"";
+        case eval(immediatePriority) :
+            return "\"color : red\"";
     }
 }
 retrieveInformation();
-

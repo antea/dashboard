@@ -5,9 +5,6 @@
  * registering your project
  */
 
-var apiKey = ""; //TODO insert your GoogleApiKey
-var calendarId = ""; //TODO insert your CalendarID
-var clientId = ""; //TODO insert your ClientID
 var scope = "https://www.googleapis.com/auth/calendar";
 
 function authorizeClient() {
@@ -21,27 +18,25 @@ function authorizeClient() {
 }
 
 function appendEvents(arrayEvents, numberEvents) {
-    $("#calendarDiv").append("<ul>");
     for (var i = 0; i < numberEvents; i++) {
         var summary = arrayEvents[i].summary;
-        if (arrayEvents[i].start.dateTime !== undefined) {
+        if (arrayEvents[i].start.dateTime) {
             var date = arrayEvents[i].start.dateTime.substr(0, 10);
             var startTime = arrayEvents[i].start.dateTime.substr(11, 8);
             var endTime = arrayEvents[i].end.dateTime.substr(11, 8);
-            $("#calendarDiv").append("<li>" + date + " from " + startTime + " to " +
+            $("#calendarUl").append("<li>" + date + " since " + startTime + " to " +
                     endTime + " : " + summary + "</li>");
         } else {
             var startDate = arrayEvents[i].start.date;
             var endDate = arrayEvents[i].end.date;
             if (startDate === endDate) {
-                $("#calendarDiv").append("<li>" + startDate + " : " + summary + "</li>");
+                $("#calendarUl").append("<li>" + startDate + " : " + summary + "</li>");
             } else {
-                $("#calendarDiv").append("<li>From " + startDate + " to " + endDate + " : " +
+                $("#calendarUl").append("<li>Since " + startDate + " to " + endDate + " : " +
                         summary + "</li>");
             }
         }
     }
-    $("#calendarDiv").append("</ul>");
 }
 
 function makeNextEventsRequest() {
@@ -67,6 +62,3 @@ function handleClientLoad() {
     gapi.client.setApiKey(apiKey);
     authorizeClient();
 }
-
-
-
