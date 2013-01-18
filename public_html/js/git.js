@@ -3,8 +3,8 @@
  * and open the template in the editor.
  */
 
-var gitUrl = 'http://git.antea.bogus/?p=bbox.git;a=rss;h=refs/heads/develop';
-$.get(gitUrl, function(data) {
+var gitURL = 'http://gitweb.antea.bogus/?p=bbox.git;a=rss;h=refs/heads/develop';
+$.get(gitURL, function(data) {
     var $xml = $(data);
     $xml.find("item").each(function(index) {
         var $this = $(this),
