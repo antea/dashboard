@@ -18,7 +18,6 @@ $.getJSON(jenkinsURL, function(data) {
         }
         $("#jenkinsDiv").append("<p class=" + pClass + ">" + obj.jobs[i].name +
                 "</p>");
-        console.log(obj);
     }
     ;
 });
