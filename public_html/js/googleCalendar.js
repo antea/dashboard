@@ -49,10 +49,12 @@ function makeNextEventsRequest() {
         });
         request.execute(function(response) {
             var items = response.items;
-            if (items.length >= 5) {
-                appendEvents(items, 5);
-            } else {
-                appendEvents(items, items.length);
+            if (items) {
+                if (items.length >= 5) {
+                    appendEvents(items, 5);
+                } else {
+                    appendEvents(items, items.length);
+                }
             }
         });
 
