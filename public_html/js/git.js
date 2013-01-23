@@ -21,4 +21,20 @@ $.get(gitURL, function(data) {
         }
     });
 });
+$.get("http://gitweb/?p=bbox.git;a=heads", function(result) {
+    var $data = $(result);
+    $data.find("tr").each(function(index) {
+        var $this = $(this);
+        $this.find("td").each(function(index) {
+            var $this = $(this);
+            $("#branchDiv").append("<p>" + $this.text() + "</p>");
+            if (index === 1) {
+                return false;
+            }
+        });
+        if (index === 4) {
+            return false;
+        }
+    });
+});
 
