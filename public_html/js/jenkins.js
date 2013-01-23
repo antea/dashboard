@@ -3,8 +3,7 @@
  * and open the template in the editor.
  */
 
-var jenkinsURL = 'http://jenkins.antea.bogus/hudson/api/json';
-$.getJSON(jenkinsURL, function(data) {
+$.getJSON(jenkinsUrl, function(data) {
     var obj = data;
     for (i = 0; i < obj.jobs.length; i++) {
         var jobColor = obj.jobs[i].color;

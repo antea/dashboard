@@ -12,7 +12,7 @@ var urgentPriority = "6";
 var immediatePriority = "7";
 
 function retrieveInformation() {
-    $.getJSON('http://redmine.antea.bogus/issues.json',
+    $.getJSON(redmineUrl,
     {'key': redmineKey, 'status_id': statusOngoing}
     , function(response) {
         var issues = response.issues;

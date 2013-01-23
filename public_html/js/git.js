@@ -3,8 +3,7 @@
  * and open the template in the editor.
  */
 
-var gitURL = 'http://gitweb.antea.bogus/?p=bbox.git;a=rss;h=refs/heads/develop';
-$.get(gitURL, function(data) {
+$.get(gitUrl, function(data) {
     var $xml = $(data);
     $xml.find("item").each(function(index) {
         var $this = $(this);
@@ -21,7 +20,7 @@ $.get(gitURL, function(data) {
         }
     });
 });
-$.get("http://gitweb/?p=bbox.git;a=heads", function(result) {
+$.get(gitWebUrl, function(result) {
     var $data = $(result);
     $data.find("tr").each(function(index) {
         var $this = $(this);
