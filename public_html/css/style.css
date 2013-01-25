@@ -1,0 +1,16 @@
+div.carousel-inner {
+    min-height: 700px;
+}
+
+li.lowPriority{
+    color: cyan;
+}
+li.normalPriority{
+    color: black;
+}
+li.urgentPriority{
+    color: orange;
+}
+li.immediatePriority{
+    color: red;
+}

@@ -31,13 +31,13 @@ function retrieveInformation() {
 function colorPriority(num) {
     switch (num) {
         case eval(lowPriority) :
-            return "lowPriority";
+            return "\"lowPriority\"";
         case eval(normalPriority) :
-            return "normalPriority";
+            return "\"normalPriority\"";
         case eval(urgentPriority) :
-            return "urgentPriority";
+            return "\"urgentPriority\"";
         case eval(immediatePriority) :
-            return "immediatePriority";
+            return "\"immediatePriority\"";
     }
 }
 retrieveInformation();

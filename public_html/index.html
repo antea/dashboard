@@ -3,31 +3,50 @@
         <title>Dashboard</title>
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/style.css" rel="stylesheet" media="screen">
     </head>
     <body>
         <div class="container">
             <div class="row">
-                <div class="span6" style="background-color: greenyellow"><p></p></div>
-                <div class="span6" style="background-color: coral"><p></p></div>
+                <div class="span12">
+                    <div class="page-header">
+                        <h1>Dashboard sviluppo Antea <small>dashboard for the curious developers!</small></h1>
+                    </div>
+                </div>
             </div>
             <div class="row">
-                <div class="span6" style="background-color: coral"><p></p></div>
-                <div class="span6" style="background-color: greenyellow"><p></p></div>
+                <div class="span12">
+                    <div id="myCarousel" class="carousel slide">
+                        <!-- Carousel items -->
+                        <div class="carousel-inner">
+                            <div class="active item" id="redmineDiv">
+                                <h3>Ongoing issues:</h3>
+                                <ul id="redmineUl"></ul>
+                            </div>
+                            <div class="item" id="gitDiv"></div>
+                            <div class="item" id="jenkinsDiv"></div>
+                            <div class="item" id="branchDiv"></div>
+                            <div class="item" id="calendarDiv">
+                                <h3>Calendar events:</h3>
+                                <ul id="calendarUl"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div id="calendarDiv">
-            <h3>Calendar events:</h3>
-            <ul id="calendarUl"></ul>
-        </div>
-        <div id="redmineDiv">
-            <h3>Ongoing issues:</h3>
-            <ul id="redmineUl"></ul>
         </div>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="thirdpart_js/bootstrap.min.js"></script>
         <script src="js/googleCalendar.js"></script>
         <script src="js/config.js"></script>
         <script src="js/redmine.js"></script>
+        <script src="js/jenkins.js"></script>
+        <script src="js/git.js"></script>
         <script src="https://apis.google.com/js/client.js?onload=authorizeClient"></script>
+        <script>
+            $('.carousel').carousel({
+                interval: 5000
+            });
+        </script>
     </body>
 </html>
