@@ -21,8 +21,8 @@ function retrieveInformation() {
             var subject = issues[i].subject;
             var project = issues[i].project.name;
             var priority = issues[i].priority.id;
-            $("#redmineUl").append("<li style = " + colorPriority(priority) + ">Project: <strong>" +
-                    project + "</strong> : <strong>" + subject + "</strong> assigned to <strong>" +
+            $("#redmineUl").append("<li class = " + colorPriority(priority) + ">Progetto: <strong>" +
+                    project + "</strong> : <strong>" + subject + "</strong> assegnato a <strong>" +
                     nameDeveloper + "</strong></li>");
         }
     });
@@ -31,13 +31,13 @@ function retrieveInformation() {
 function colorPriority(num) {
     switch (num) {
         case eval(lowPriority) :
-            return "\"color : lightskyblue\"";
+            return "lowPriority";
         case eval(normalPriority) :
-            return "\"color : lightgreen\"";
+            return "normalPriority";
         case eval(urgentPriority) :
-            return "\"color : orange\"";
+            return "urgentPriority";
         case eval(immediatePriority) :
-            return "\"color : red\"";
+            return "immediatePriority";
     }
 }
 retrieveInformation();

@@ -21,18 +21,18 @@ function appendEvents(arrayEvents, numberEvents) {
     for (var i = 0; i < numberEvents; i++) {
         var summary = arrayEvents[i].summary;
         if (arrayEvents[i].start.dateTime) {
-            var date = arrayEvents[i].start.dateTime.substr(0, 10);
+            var date = new Date(arrayEvents[i].start.dateTime).toLocaleDateString();
             var startTime = arrayEvents[i].start.dateTime.substr(11, 8);
             var endTime = arrayEvents[i].end.dateTime.substr(11, 8);
-            $("#calendarUl").append("<li>" + date + " since " + startTime + " to " +
+            $("#calendarUl").append("<li>" + date + " Dalle " + startTime + " alle " +
                     endTime + " : " + summary + "</li>");
         } else {
-            var startDate = arrayEvents[i].start.date;
-            var endDate = arrayEvents[i].end.date;
+            var startDate = new Date(arrayEvents[i].start.date).toLocaleDateString();
+            var endDate = new Date(arrayEvents[i].end.date).toLocaleDateString();
             if (startDate === endDate) {
                 $("#calendarUl").append("<li>" + startDate + " : " + summary + "</li>");
             } else {
-                $("#calendarUl").append("<li>Since " + startDate + " to " + endDate + " : " +
+                $("#calendarUl").append("<li>Dal " + startDate + " al " + endDate + " : " +
                         summary + "</li>");
             }
         }
