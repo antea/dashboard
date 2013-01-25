@@ -12,22 +12,35 @@ $.get(gitUrl, function(data) {
             pubDate: new Date($this.find("pubDate").text()),
             author: $this.find("author").text().split(" <")[0]
         };
-        $("#gitDiv").append("<h3>" + item.title + "</h3>" + "<ul><li>Autore: " +
-                item.author + "</li>" + "<li>In: " + item.pubDate.toLocaleString() + ".</li></ul>");
-        //console.log(item.pubDate);
+        $("#gitDiv").append("<blockquote><p>" + item.title + "</p>" + "<small>" +
+                item.author + " il " + item.pubDate.toLocaleString() + ".</small></blockquote>");
         if (index === 4) {
             return false;
         }
     });
 });
+
 $.get(gitWebUrl, function(result) {
     var $data = $(result);
+    var found = [];
+    var i = 0;
     $data.find("tr").each(function(index) {
         var $this = $(this);
         $this.find("td").each(function(index) {
             var $this = $(this);
-            $("#branchDiv").append("<p>" + $this.text() + "</p>");
-            if (index === 1) {
+            if (index === 0) {
+                found[i] = $this;
+                found[i].text(found[i].text().replace("months","mesi"));
+                found[i].text(found[i].text().replace("month","mese"));
+                found[i].text(found[i].text().replace("weeks","settimane"));
+                found[i].text(found[i].text().replace("week","settimana"));
+                found[i].text(found[i].text().replace("hours","ore"));
+                found[i].text(found[i].text().replace("hour","ora"));
+                found[i].text(found[i].text().replace("ago","fa"));
+            }
+            else {
+                found[i + 1] = $this;
+                i = i + 2;
                 return false;
             }
         });
@@ -35,5 +48,8 @@ $.get(gitWebUrl, function(result) {
             return false;
         }
     });
+    for (i = 0; i < found.length; i += 2) {
+        $("#branchDiv").append("<blockquote><p>" + found[i + 1].text() + "</p><small>" + found[i].text() + "</small></blockquote>");
+    }
 });
 
