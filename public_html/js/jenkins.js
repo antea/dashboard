@@ -3,20 +3,19 @@
  * and open the template in the editor.
  */
 
-$.getJSON(jenkinsUrl, function(data) {
-    var obj = data;
-    for (i = 0; i < obj.jobs.length; i++) {
-        var jobColor = obj.jobs[i].color;
-        var pClass;
-        if (jobColor === "blue") {
-            pClass = "text-info";
-        } else if (jobColor === "red") {
-            pClass = "text-error";
-        } else if (jobColor === "yellow") {
-            pClass = "text-warning";
-        }
-        $("#jenkinsDiv").append("<p class=" + pClass + ">" + obj.jobs[i].name +
-                "</p>");
+$.getJSON(jenkinsUrl, function(data, textStatus) {
+  var obj = data;
+  for (i = 0; i < obj.jobs.length; i++) {
+    var jobColor = obj.jobs[i].color;
+    var pClass;
+    if (jobColor === "blue") {
+      pClass = "text-info";
+    } else if (jobColor === "red") {
+      pClass = "text-error";
+    } else if (jobColor === "yellow") {
+      pClass = "text-warning";
     }
-    ;
+    $("#jenkinsDiv").append("<p class=" + pClass + ">" + obj.jobs[i].name +
+            "</p>");
+  }
 });
