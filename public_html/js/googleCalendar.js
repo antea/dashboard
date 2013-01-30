@@ -45,7 +45,9 @@ function makeNextEventsRequest() {
         var request = gapi.client.calendar.events.list({
             'calendarId': calendarId,
             'timeMin': now,
-            'fields': 'items(summary,start,end)'
+            'fields': 'items(summary,start,end)',
+            'orderBy': 'startTime',
+            'singleEvents': 'true'
         });
         request.execute(function(response) {
             var items = response.items;
