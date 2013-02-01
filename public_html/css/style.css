@@ -22,3 +22,23 @@ li.immediatePriority{
     from{width:100%;}
     to{width:0%;}
 }
+div.well{
+    background-color: #e79292;
+    border-color: #cc0000;
+}
+#navbar > .active > a{
+    background-color: #cc0000;
+    color: white;
+}
+#navbar > li > a{
+    color: #cc0000;
+}
+blockquote > p > small{
+    color: white;
+}
+.well > blockquote{
+    border-left: 5px solid #cb6464;
+}
+#clock{
+    color: #cc0000;
+}

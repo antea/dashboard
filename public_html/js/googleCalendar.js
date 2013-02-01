@@ -27,18 +27,18 @@ function appendEvents(arrayEvents, numberEvents) {
         var startDateTime = arrayEvents[i].start.dateTime;
         if (startDateTime) {
             var date = new Date(startDateTime).toLocaleDateString();
-            var startTime = startDateTime.substr(11, 8);
-            var endTime = arrayEvents[i].end.dateTime.substr(11, 8);
+            var startTime = startDateTime.substr(11, 5);
+            var endTime = arrayEvents[i].end.dateTime.substr(11, 5);
             $(eventState(startDateTime)).append("<div class=\"well well-small\"><h4>" + date + "</h4><h4>Dalle " + startTime +
                     " alle " + endTime + "</h4><blockquote><h5>" + summary + "</h5></blockquote></div>");
         } else {
             var startDate = new Date(arrayEvents[i].start.date);
             var endDate = new Date(arrayEvents[i].end.date).toLocaleDateString();
             if (startDate === endDate) {
-                $(eventState(startDate)).append("<div class=\"well well-small\"><h4>" + startDate.toLocaleDateString() +
-                        "</h4><blockquote><h5>" + summary + "</h5></blockquote></div>");
+                $(eventState(startDate)).append("<div class=\"well well-large\"><h4>" + startDate.toLocaleDateString() +
+                        "</br></h4><blockquote><h5>" + summary + "</h5></blockquote></div>");
             } else {
-                $(eventState(startDate)).append("<div class=\"well well-small\"><h4>Dal " + startDate.toLocaleDateString() + 
+                $(eventState(startDate)).append("<div class=\"well well-large\"><h4>Dal " + startDate.toLocaleDateString() + 
                         " al " + endDate + "</h4><blockquote><h5>" + summary + "</h5></blockquote></div>");
             }
         }

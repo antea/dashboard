@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Dashboard</title>
+        <link href="img/anteaLogo.png" rel="icon">
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="css/style.css" rel="stylesheet" media="screen">
@@ -10,23 +11,25 @@
             <div class="row-fluid">
                 <div class="span12">
                     <div class="page-header">
-                        <h1>Dashboard sviluppo Antea <small>dashboard for the curious developers!</small></h1>
+                        <h1><img src="img/Antea.png">Dashboard di sviluppo<small> Dashboard for the curious developers!</small></h1>
                     </div>
                 </div>
             </div>
             <div class="row-fluid">
                 <div class="span3">
                     <ul class="nav nav-list" id="navbar">
-                        <li class="nav-header">Lista Informazioni</li>
+                        <li class="nav-header"><strong>Lista Informazioni</strong></li>
                         <li class="active" id="redmineDivLi"><a href="#redmineDiv">Redmine</a></li>
                         <li id="gitDivLi"><a href="#gitDiv">Git</a></li>
                         <li id="jenkinsDivLi"><a href="#jankinsDiv">Jankins</a></li>
                         <li id="calendarDivLi"><a href="#calendarDiv">Calendar</a></li>
                     </ul>
                     <hr/>
-                    <div class="progress" id="progContainer">
+                    <div class="progress progress-danger" id="progContainer">
                         <div id="progress" class="bar"></div>
                     </div>
+                    <hr/>
+                    <div><h2 id="clock"></h2></div>
                 </div>
                 <div class="span9">
                     <div id="myCarousel" class="carousel slide">

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-var INTERVAL = 10000;
+var INTERVAL = 20000;
 var TIMEOUT;
 getGit();
 getJenkins();
@@ -35,3 +35,9 @@ var restartBar = function() {
     $("#progress").css("-webkit-animation-play-state", "running");
 };
 
+var clock = function(){
+  var time = new Date().toLocaleTimeString();
+  $("#clock").empty();
+  $("#clock").append(time);
+};
+window.setInterval("clock()","1000");
