@@ -6,16 +6,29 @@
         <link href="css/style.css" rel="stylesheet" media="screen">
     </head>
     <body>
-        <div class="container">
-            <div class="row">
+        <div class="container-fluid">
+            <div class="row-fluid">
                 <div class="span12">
                     <div class="page-header">
                         <h1>Dashboard sviluppo Antea <small>dashboard for the curious developers!</small></h1>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="span12">
+            <div class="row-fluid">
+                <div class="span3">
+                    <ul class="nav nav-list" id="navbar">
+                        <li class="nav-header">Lista Informazioni</li>
+                        <li class="active" id="redmineDivLi"><a href="#redmineDiv">Redmine</a></li>
+                        <li id="gitDivLi"><a href="#gitDiv">Git</a></li>
+                        <li id="jenkinsDivLi"><a href="#jankinsDiv">Jankins</a></li>
+                        <li id="calendarDivLi"><a href="#calendarDiv">Calendar</a></li>
+                    </ul>
+                    <hr/>
+                    <div class="progress" id="progContainer">
+                        <div id="progress" class="bar"></div>
+                    </div>
+                </div>
+                <div class="span9">
                     <div id="myCarousel" class="carousel slide">
                         <!-- Carousel items -->
                         <div class="carousel-inner">
@@ -23,7 +36,7 @@
                                 <h3>Ongoing issues:</h3>
                                 <ul id="redmineUl"></ul>
                             </div>
-                            
+
                             <div class="item" id="gitDiv">
                                 <div class="row-fluid">
                                     <div class="span7 well" id="commitDiv">
@@ -34,7 +47,7 @@
                                     </div>                                        
                                 </div>
                             </div>
-                            
+
                             <div class="item" id="jenkinsDiv">
                                 <table class="table table-condensed">
                                     <thead>
@@ -47,11 +60,26 @@
                                     <tbody id="jenkinsTable"></tbody>
                                 </table>
                             </div>
-                            
-                            <div class="item" id="branchDiv"></div>
+
                             <div class="item" id="calendarDiv">
-                                <h3>Calendar events:</h3>
-                                <ul id="calendarUl"></ul>
+                                <div class="row-fluid">
+                                    <div id="OngoingEventsDiv" class="span12">
+                                        <h4 id="OngoingEventsTitle">Eventi in corso:</h4>
+                                        <div class="row-fluid">
+                                            <div id="OngoingEventsDiv1" class="span6"></div>
+                                            <div id="OngoingEventsDiv0" class="span6"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row-fluid">
+                                    <div id="NextEventsDiv" class="span12">
+                                        <h4 id="NextEventsTitle">Prossimi eventi:</h4>
+                                        <div class="row-fluid">
+                                            <div id="NextEventsDiv1" class="span6"></div>
+                                            <div id="NextEventsDiv0" class="span6"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -66,12 +94,6 @@
         <script src="js/jenkins.js"></script>
         <script src="js/git.js"></script>
         <script src="https://apis.google.com/js/client.js?onload=authorizeClient"></script>
-        <script>
-            $('.carousel').carousel({
-                interval: 5000
-            });
-            getGit();
-            getJenkins();
-        </script>
+        <script src="js/animations.js"></script>
     </body>
 </html>
