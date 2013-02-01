@@ -23,8 +23,31 @@
                                 <h3>Ongoing issues:</h3>
                                 <ul id="redmineUl"></ul>
                             </div>
-                            <div class="item" id="gitDiv"></div>
-                            <div class="item" id="jenkinsDiv"></div>
+                            
+                            <div class="item" id="gitDiv">
+                                <div class="row-fluid">
+                                    <div class="span7 well" id="commitDiv">
+                                        <h2>Ultimi 5 commit</h2>
+                                    </div>
+                                    <div class="span5 well" id="branchDiv">
+                                        <h4>Ultimi 5 branch che hanno ricevuto commit</h4>
+                                    </div>                                        
+                                </div>
+                            </div>
+                            
+                            <div class="item" id="jenkinsDiv">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>Build</th>
+                                            <th>Data</th>
+                                            <th>Stato</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="jenkinsTable"></tbody>
+                                </table>
+                            </div>
+                            
                             <div class="item" id="branchDiv"></div>
                             <div class="item" id="calendarDiv">
                                 <h3>Calendar events:</h3>
@@ -47,6 +70,8 @@
             $('.carousel').carousel({
                 interval: 5000
             });
+            getGit();
+            getJenkins();
         </script>
     </body>
 </html>

@@ -14,3 +14,16 @@ li.urgentPriority{
 li.immediatePriority{
     color: red;
 }
+@-webkit-keyframes myfirst /* Safari and Chrome */
+{
+from {background:red;}
+to {background:yellow;}
+}
+#progress{
+    -webkit-animation:myMove 9s; 
+    -webkit-animation-timing-function:linear;
+}
+@-webkit-keyframes myMove{
+    from{width:100%;}
+    to{width:0%;}
+}
