@@ -6,6 +6,8 @@
  */
 
 var scope = "https://www.googleapis.com/auth/calendar";
+var ongoingEventsDiv = "#OngoingEventsDiv";
+var nextEventsDiv = "#NextEventsDiv";
 
 function authorizeClient() {
     var config = {
@@ -18,24 +20,34 @@ function authorizeClient() {
 }
 
 function appendEvents(arrayEvents, numberEvents) {
+    $(ongoingEventsDiv).css("display","block");
+    $(nextEventsDiv).css("display","block");
     for (var i = 0; i < numberEvents; i++) {
         var summary = arrayEvents[i].summary;
-        if (arrayEvents[i].start.dateTime) {
-            var date = new Date(arrayEvents[i].start.dateTime).toLocaleDateString();
-            var startTime = arrayEvents[i].start.dateTime.substr(11, 8);
+        var startDateTime = arrayEvents[i].start.dateTime;
+        if (startDateTime) {
+            var date = new Date(startDateTime).toLocaleDateString();
+            var startTime = startDateTime.substr(11, 8);
             var endTime = arrayEvents[i].end.dateTime.substr(11, 8);
-            $("#calendarUl").append("<li>" + date + " Dalle " + startTime + " alle " +
-                    endTime + " : " + summary + "</li>");
+            $(eventState(startDateTime)).append("<div class=\"well well-small\"><h4>" + date + "</h4><h4>Dalle " + startTime +
+                    " alle " + endTime + "</h4><blockquote><h5>" + summary + "</h5></blockquote></div>");
         } else {
-            var startDate = new Date(arrayEvents[i].start.date).toLocaleDateString();
+            var startDate = new Date(arrayEvents[i].start.date);
             var endDate = new Date(arrayEvents[i].end.date).toLocaleDateString();
             if (startDate === endDate) {
-                $("#calendarUl").append("<li>" + startDate + " : " + summary + "</li>");
+                $(eventState(startDate)).append("<div class=\"well well-small\"><h4>" + startDate.toLocaleDateString() +
+                        "</h4><blockquote><h5>" + summary + "</h5></blockquote></div>");
             } else {
-                $("#calendarUl").append("<li>Dal " + startDate + " al " + endDate + " : " +
-                        summary + "</li>");
+                $(eventState(startDate)).append("<div class=\"well well-small\"><h4>Dal " + startDate.toLocaleDateString() + 
+                        " al " + endDate + "</h4><blockquote><h5>" + summary + "</h5></blockquote></div>");
             }
         }
+    }
+    if($(ongoingEventsDiv).find('div').length === 3){
+        $(ongoingEventsDiv).css("display","none");
+    }
+    if($(nextEventsDiv).find('div').length === 3){
+        $(nextEventsDiv).css("display","none");
     }
 }
 
@@ -62,6 +74,17 @@ function makeNextEventsRequest() {
 
     });
 }
+var eventState = function(startDate) {
+    var now = new Date();
+    var date= new Date(startDate);
+    if (date < now) {
+        var divNum = $(ongoingEventsDiv).find('div').length%2;
+        return ongoingEventsDiv+divNum;
+    } else {
+        var divNum = $(nextEventsDiv).find('div').length%2;
+        return nextEventsDiv+divNum;
+    }
+};
 function handleClientLoad() {
     gapi.client.setApiKey(apiKey);
     authorizeClient();
