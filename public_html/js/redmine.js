@@ -11,10 +11,11 @@ var normalPriority = "4";
 var urgentPriority = "6";
 var immediatePriority = "7";
 
-function retrieveInformation() {
+function getRedmine() {
     $.getJSON(redmineUrl,
-    {'key': redmineKey, 'status_id': statusOngoing}
+            {'key': redmineKey, 'status_id': statusOngoing}
     , function(response) {
+        $("#redmineUl").empty();
         var issues = response.issues;
         for (var i = 0; i < issues.length; i++) {
             var nameDeveloper = issues[i].assigned_to.name;
@@ -40,4 +41,3 @@ function colorPriority(num) {
             return "\"immediatePriority\"";
     }
 }
-retrieveInformation();

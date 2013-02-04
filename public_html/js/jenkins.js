@@ -54,6 +54,7 @@ getJenkins = function() {
                 var date = new Date($this.find("published").text());
                 found[index].date = date;
             });
+            $("#jenkinsTable").empty();
             for (i = 0; i < found.length; i++) {
                 $("#jenkinsTable").append("<tr class=\"" + found[i].color + "\"><td><strong>" + found[i].name + "</strong></td><td>" + found[i].date.toLocaleString() +
                         "</td><td>" + found[i].state + "</td></tr>");

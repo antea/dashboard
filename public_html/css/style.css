@@ -23,8 +23,8 @@ li.immediatePriority{
     to{width:0%;}
 }
 div.well{
-    background-color: #e79292;
-    border-color: #cc0000;
+    background-color: white;
+    border: 1px solid #cc0000;
 }
 #navbar > .active > a{
     background-color: #cc0000;
@@ -32,13 +32,20 @@ div.well{
 }
 #navbar > li > a{
     color: #cc0000;
+    cursor: pointer;
 }
 blockquote > p > small{
-    color: white;
+    color: lightslategrey;
 }
 .well > blockquote{
     border-left: 5px solid #cb6464;
 }
 #clock{
     color: #cc0000;
+}
+strong{
+    color: black;
+}
+#logoAntea{
+    height: 8%;
 }

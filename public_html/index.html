@@ -2,6 +2,8 @@
     <head>
         <title>Dashboard</title>
         <link href="img/anteaLogo.png" rel="icon">
+        <!-- GoogleCalendar -->
+        <script src="https://apis.google.com/js/client.js"></script>
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="css/style.css" rel="stylesheet" media="screen">
@@ -11,7 +13,7 @@
             <div class="row-fluid">
                 <div class="span12">
                     <div class="page-header">
-                        <h1><img src="img/Antea.png">Dashboard di sviluppo<small> Dashboard for the curious developers!</small></h1>
+                        <h1><img src="img/Antea_logo_colore_def.png" id="logoAntea"> Dashboard di sviluppo<small> Dashboard for the curious developers!</small></h1>
                     </div>
                 </div>
             </div>
@@ -19,10 +21,10 @@
                 <div class="span3">
                     <ul class="nav nav-list" id="navbar">
                         <li class="nav-header"><strong>Lista Informazioni</strong></li>
-                        <li class="active" id="redmineDivLi"><a href="#redmineDiv">Redmine</a></li>
-                        <li id="gitDivLi"><a href="#gitDiv">Git</a></li>
-                        <li id="jenkinsDivLi"><a href="#jankinsDiv">Jankins</a></li>
-                        <li id="calendarDivLi"><a href="#calendarDiv">Calendar</a></li>
+                        <li class="active" id="redmineDivLi"><a>Redmine</a></li>
+                        <li id="gitDivLi"><a>Git</a></li>
+                        <li id="jenkinsDivLi"><a>Jankins</a></li>
+                        <li id="calendarDivLi"><a>Calendar</a></li>
                     </ul>
                     <hr/>
                     <div class="progress progress-danger" id="progContainer">
@@ -43,10 +45,8 @@
                             <div class="item" id="gitDiv">
                                 <div class="row-fluid">
                                     <div class="span7 well" id="commitDiv">
-                                        <h2>Ultimi 5 commit</h2>
                                     </div>
                                     <div class="span5 well" id="branchDiv">
-                                        <h4>Ultimi 5 branch che hanno ricevuto commit</h4>
                                     </div>                                        
                                 </div>
                             </div>
@@ -96,7 +96,6 @@
         <script src="js/redmine.js"></script>
         <script src="js/jenkins.js"></script>
         <script src="js/git.js"></script>
-        <script src="https://apis.google.com/js/client.js?onload=authorizeClient"></script>
         <script src="js/animations.js"></script>
     </body>
 </html>

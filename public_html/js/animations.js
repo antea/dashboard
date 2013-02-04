@@ -4,8 +4,20 @@
  */
 var INTERVAL = 20000;
 var TIMEOUT;
+
 getGit();
 getJenkins();
+getRedmine();
+window.onload = function() {
+    getCalendar();
+};
+
+$("#progress").animate({
+    from: "width:100%",
+    to: "width:0%",
+    timing: "linear"
+});
+
 $('.carousel').carousel({
     interval: INTERVAL
 });
@@ -22,7 +34,7 @@ $(".carousel").on("slide", function() {
 });
 $(".carousel").on("slid", function() {
     var attr = $(".carousel .active").attr("id") + "Li";
-    $("#navbar > li").removeClass();
+    $("#navbar > li").removeClass("active");
     $("#" + attr).addClass("active");
     $("#progres").attr("id", "progress");
 });
@@ -35,9 +47,30 @@ var restartBar = function() {
     $("#progress").css("-webkit-animation-play-state", "running");
 };
 
-var clock = function(){
-  var time = new Date().toLocaleTimeString();
-  $("#clock").empty();
-  $("#clock").append(time);
+var clock = function() {
+    var time = new Date().toLocaleTimeString();
+    $("#clock").empty();
+    $("#clock").append(time);
 };
-window.setInterval("clock()","1000");
+window.setInterval("clock()", "1000");
+
+document.getElementById("redmineDivLi").onclick = function() {
+    $('.carousel').carousel(0);
+};
+document.getElementById("gitDivLi").onclick = function() {
+    $('.carousel').carousel(1);
+};
+document.getElementById("jenkinsDivLi").onclick = function() {
+    $('.carousel').carousel(2);
+};
+document.getElementById("calendarDivLi").onclick = function() {
+    $('.carousel').carousel(3);
+};
+
+var callMethods = function() {
+    getGit();
+    getJenkins();
+    getRedmine();
+    getCalendar();
+};
+window.setInterval("callMethods()", "60000");

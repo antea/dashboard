@@ -9,7 +9,7 @@ var scope = "https://www.googleapis.com/auth/calendar";
 var ongoingEventsDiv = "#OngoingEventsDiv";
 var nextEventsDiv = "#NextEventsDiv";
 
-function authorizeClient() {
+function getCalendar() {
     var config = {
         'client_id': clientId,
         'scope': scope
@@ -20,8 +20,9 @@ function authorizeClient() {
 }
 
 function appendEvents(arrayEvents, numberEvents) {
-    $(ongoingEventsDiv).css("display","block");
-    $(nextEventsDiv).css("display","block");
+    $(ongoingEventsDiv).css("display", "block");
+    $(nextEventsDiv).css("display", "block");
+    clearDiv();
     for (var i = 0; i < numberEvents; i++) {
         var summary = arrayEvents[i].summary;
         var startDateTime = arrayEvents[i].start.dateTime;
@@ -29,25 +30,25 @@ function appendEvents(arrayEvents, numberEvents) {
             var date = new Date(startDateTime).toLocaleDateString();
             var startTime = startDateTime.substr(11, 5);
             var endTime = arrayEvents[i].end.dateTime.substr(11, 5);
-            $(eventState(startDateTime)).append("<div class=\"well well-small\"><h4>" + date + "</h4><h4>Dalle " + startTime +
+            $(eventState(startDateTime)).append("<div class=\"well well-small\"><h4>" + date + " dalle " + startTime +
                     " alle " + endTime + "</h4><blockquote><h5>" + summary + "</h5></blockquote></div>");
         } else {
             var startDate = new Date(arrayEvents[i].start.date);
             var endDate = new Date(arrayEvents[i].end.date).toLocaleDateString();
             if (startDate === endDate) {
-                $(eventState(startDate)).append("<div class=\"well well-large\"><h4>" + startDate.toLocaleDateString() +
+                $(eventState(startDate)).append("<div class=\"well well-small\"><h4>" + startDate.toLocaleDateString() +
                         "</br></h4><blockquote><h5>" + summary + "</h5></blockquote></div>");
             } else {
-                $(eventState(startDate)).append("<div class=\"well well-large\"><h4>Dal " + startDate.toLocaleDateString() + 
+                $(eventState(startDate)).append("<div class=\"well well-small\"><h4>Dal " + startDate.toLocaleDateString() +
                         " al " + endDate + "</h4><blockquote><h5>" + summary + "</h5></blockquote></div>");
             }
         }
     }
-    if($(ongoingEventsDiv).find('div').length === 3){
-        $(ongoingEventsDiv).css("display","none");
+    if ($(ongoingEventsDiv).find('div').length === 3) {
+        $(ongoingEventsDiv).css("display", "none");
     }
-    if($(nextEventsDiv).find('div').length === 3){
-        $(nextEventsDiv).css("display","none");
+    if ($(nextEventsDiv).find('div').length === 3) {
+        $(nextEventsDiv).css("display", "none");
     }
 }
 
@@ -64,8 +65,8 @@ function makeNextEventsRequest() {
         request.execute(function(response) {
             var items = response.items;
             if (items) {
-                if (items.length >= 5) {
-                    appendEvents(items, 5);
+                if (items.length >= 6) {
+                    appendEvents(items, 6);
                 } else {
                     appendEvents(items, items.length);
                 }
@@ -76,16 +77,19 @@ function makeNextEventsRequest() {
 }
 var eventState = function(startDate) {
     var now = new Date();
-    var date= new Date(startDate);
+    var date = new Date(startDate);
     if (date < now) {
-        var divNum = $(ongoingEventsDiv).find('div').length%2;
-        return ongoingEventsDiv+divNum;
+        var divNum = $(ongoingEventsDiv).find('div').length % 2;
+        return ongoingEventsDiv + divNum;
     } else {
-        var divNum = $(nextEventsDiv).find('div').length%2;
-        return nextEventsDiv+divNum;
+        var divNum = $(nextEventsDiv).find('div').length % 2;
+        return nextEventsDiv + divNum;
     }
 };
-function handleClientLoad() {
-    gapi.client.setApiKey(apiKey);
-    authorizeClient();
-}
+
+var clearDiv = function(){
+    $(ongoingEventsDiv+"0").empty();
+    $(ongoingEventsDiv+"1").empty();
+    $(nextEventsDiv+"0").empty();
+    $(nextEventsDiv+"1").empty();
+};
