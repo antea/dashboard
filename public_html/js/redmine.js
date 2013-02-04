@@ -10,21 +10,32 @@ var lowPriority = "3";
 var normalPriority = "4";
 var urgentPriority = "6";
 var immediatePriority = "7";
+var redmineDiv = "#redmineInnerDiv";
 
 function getRedmine() {
     $.getJSON(redmineUrl,
             {'key': redmineKey, 'status_id': statusOngoing}
     , function(response) {
-        $("#redmineUl").empty();
+        $(redmineDiv).empty();
+        $(redmineDiv).append("<h4>Segnalazioni in corso:</h4>");
         var issues = response.issues;
         for (var i = 0; i < issues.length; i++) {
             var nameDeveloper = issues[i].assigned_to.name;
             var subject = issues[i].subject;
             var project = issues[i].project.name;
+            var projectNoSpace = project.replace(/ /g, "_");
             var priority = issues[i].priority.id;
-            $("#redmineUl").append("<li class = " + colorPriority(priority) + ">Progetto: <strong>" +
-                    project + "</strong> : <strong>" + subject + "</strong> assegnato a <strong>" +
-                    nameDeveloper + "</strong></li>");
+            var apendBlockquote = function() {
+                var rowNumber = $("#" + projectNoSpace).find('blockquote').length%2;
+                $("#" + projectNoSpace+rowNumber).append("<blockquote><p class = " + colorPriority(priority) + ">" + subject + "<small>Assegnato a " +
+                        nameDeveloper + "</small></p></blokquote>");
+                };
+            if ($.find("#" + projectNoSpace).length !== 0) {
+                apendBlockquote();
+            } else {
+                $(redmineDiv).append("<div class=\"row-fluid\"><div class=\"span12\"><div class=\"well well-small span12\" id=\""+projectNoSpace+"\"><h4>" + project + "</h4><div class=\"row-fluid\"><div class=\"span6\" id=\""+projectNoSpace+0+"\"></div><div class=\"span6\" id=\""+projectNoSpace+1+"\"></div></div></div></div></div>");
+                apendBlockquote();
+            }
         }
     });
 }

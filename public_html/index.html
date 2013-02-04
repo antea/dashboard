@@ -23,8 +23,8 @@
                         <li class="nav-header"><strong>Lista Informazioni</strong></li>
                         <li class="active" id="redmineDivLi"><a>Redmine</a></li>
                         <li id="gitDivLi"><a>Git</a></li>
-                        <li id="jenkinsDivLi"><a>Jankins</a></li>
-                        <li id="calendarDivLi"><a>Calendar</a></li>
+                        <li id="jenkinsDivLi"><a>Jenkins</a></li>
+                        <li id="calendarDivLi"><a>Calendario</a></li>
                     </ul>
                     <hr/>
                     <div class="progress progress-danger" id="progContainer">
@@ -38,8 +38,10 @@
                         <!-- Carousel items -->
                         <div class="carousel-inner">
                             <div class="active item" id="redmineDiv">
-                                <h3>Ongoing issues:</h3>
-                                <ul id="redmineUl"></ul>
+                                <div class="row-fluid">
+                                    <div class="span12" id="redmineInnerDiv">
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="item" id="gitDiv">

@@ -12,12 +12,6 @@ window.onload = function() {
     getCalendar();
 };
 
-$("#progress").animate({
-    from: "width:100%",
-    to: "width:0%",
-    timing: "linear"
-});
-
 $('.carousel').carousel({
     interval: INTERVAL
 });
