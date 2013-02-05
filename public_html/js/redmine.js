@@ -27,13 +27,12 @@ function getRedmine() {
             var priority = issues[i].priority.id;
             var apendBlockquote = function() {
                 var rowNumber = $("#" + projectNoSpace).find('blockquote').length%2;
-                $("#" + projectNoSpace+rowNumber).append("<blockquote><p class = " + colorPriority(priority) + ">" + subject + "<small>Assegnato a " +
-                        nameDeveloper + "</small></p></blokquote>");
+                $("#" + projectNoSpace+"Table").append("<tr><td>"+subject+"</td><td>"+nameDeveloper+"</td></tr>");
                 };
             if ($.find("#" + projectNoSpace).length !== 0) {
                 apendBlockquote();
             } else {
-                $(redmineDiv).append("<div class=\"row-fluid\"><div class=\"span12\"><div class=\"well well-small span12\" id=\""+projectNoSpace+"\"><h4>" + project + "</h4><div class=\"row-fluid\"><div class=\"span6\" id=\""+projectNoSpace+0+"\"></div><div class=\"span6\" id=\""+projectNoSpace+1+"\"></div></div></div></div></div>");
+                $(redmineDiv).append("<div class=\"row-fluid\"><div class=\"span12\"><div class=\"well well-small span12\" id=\""+projectNoSpace+"\"><h4>" + project + "</h4><table class=\"table table-condensed table-striped\"><thead><tr><th>Segnalazione</th><th>Assegnazione</th></tr></thead><tbody id=\""+projectNoSpace+"Table"+"\"></tbody></table></div></div></div></div>");
                 apendBlockquote();
             }
         }
