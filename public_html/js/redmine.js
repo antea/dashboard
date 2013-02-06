@@ -26,8 +26,7 @@ function getRedmine() {
             var projectNoSpace = project.replace(/ /g, "_");
             var priority = issues[i].priority.id;
             var apendBlockquote = function() {
-                var rowNumber = $("#" + projectNoSpace).find('blockquote').length%2;
-                $("#" + projectNoSpace+"Table").append("<tr><td>"+subject+"</td><td>"+nameDeveloper+"</td></tr>");
+                $("#" + projectNoSpace+"Table").append("<tr class="+colorPriority(priority)+"><td>"+subject+"</td><td>"+nameDeveloper+"</td></tr>");
                 };
             if ($.find("#" + projectNoSpace).length !== 0) {
                 apendBlockquote();
@@ -43,11 +42,15 @@ function colorPriority(num) {
     switch (num) {
         case eval(lowPriority) :
             return "\"lowPriority\"";
+            break;
         case eval(normalPriority) :
             return "\"normalPriority\"";
+            break;
         case eval(urgentPriority) :
             return "\"urgentPriority\"";
+            break;
         case eval(immediatePriority) :
             return "\"immediatePriority\"";
+            break;
     }
 }
