@@ -5,8 +5,8 @@
 var INTERVAL = 20000;
 var TIMEOUT;
 
-getGit();
-getJenkins();
+getGit(gitUrl,gitWebUrl);
+getJenkins(jenkinsUrl);
 getRedmine();
 window.onload = function() {
     getCalendar();
