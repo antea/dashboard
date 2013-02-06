@@ -10,14 +10,13 @@ var lowPriority = "3";
 var normalPriority = "4";
 var urgentPriority = "6";
 var immediatePriority = "7";
-var redmineDiv = "#redmineInnerDiv";
+var redmineTable = "#redmineTable";
 
 function getRedmine() {
     $.getJSON(redmineUrl,
             {'key': redmineKey, 'status_id': statusOngoing}
     , function(response) {
-        $(redmineDiv).empty();
-        $(redmineDiv).append("<h4>Segnalazioni in corso:</h4>");
+        $(redmineTable).empty();
         var issues = response.issues;
         for (var i = 0; i < issues.length; i++) {
             var nameDeveloper = issues[i].assigned_to.name;
@@ -25,14 +24,13 @@ function getRedmine() {
             var project = issues[i].project.name;
             var projectNoSpace = project.replace(/ /g, "_");
             var priority = issues[i].priority.id;
-            var apendBlockquote = function() {
-                $("#" + projectNoSpace+"Table").append("<tr class="+colorPriority(priority)+"><td>"+subject+"</td><td>"+nameDeveloper+"</td></tr>");
-                };
+            var apendRow = function() {
+                $("#" + projectNoSpace).after("<tr><td></td><td  class=" + colorPriority(priority) + ">" + subject + "</td><td  class=" + colorPriority(priority) + ">" + nameDeveloper + "</td></tr>");
+            };
             if ($.find("#" + projectNoSpace).length !== 0) {
-                apendBlockquote();
+                apendRow();
             } else {
-                $(redmineDiv).append("<div class=\"row-fluid\"><div class=\"span12\"><div class=\"well well-small span12\" id=\""+projectNoSpace+"\"><h4>" + project + "</h4><table class=\"table table-condensed table-striped\"><thead><tr><th>Segnalazione</th><th>Assegnazione</th></tr></thead><tbody id=\""+projectNoSpace+"Table"+"\"></tbody></table></div></div></div></div>");
-                apendBlockquote();
+                $(redmineTable).append("<tr id=\"" + projectNoSpace + "\"><td><strong>" + project + "</strong></td><td class=" + colorPriority(priority) + ">" + subject + "</td><td class=" + colorPriority(priority) + ">" + nameDeveloper + "</td></tr>");
             }
         }
     });

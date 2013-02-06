@@ -21,7 +21,7 @@
                 <div class="span3">
                     <ul class="nav nav-list" id="navbar">
                         <li class="nav-header"><strong>Lista Informazioni</strong></li>
-                        <li class="active" id="redmineDivLi"><a>Redmine</a></li>
+                        <li class="active" id="redmineDivLi"><a>Segnalazioni in corso</a></li>
                         <li id="gitDivLi"><a>Git</a></li>
                         <li id="jenkinsDivLi"><a>Jenkins</a></li>
                         <li id="calendarDivLi"><a>Calendario</a></li>
@@ -40,6 +40,16 @@
                             <div class="active item" id="redmineDiv">
                                 <div class="row-fluid">
                                     <div class="span12" id="redmineInnerDiv">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>Progetto</th>
+                                            <th>Segnalazione</th>
+                                            <th>Assegnazione</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="redmineTable"></tbody>
+                                </table>
                                     </div>
                                 </div>
                             </div>
