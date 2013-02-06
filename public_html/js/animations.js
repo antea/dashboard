@@ -62,8 +62,8 @@ document.getElementById("calendarDivLi").onclick = function() {
 };
 
 var callMethods = function() {
-    getGit();
-    getJenkins();
+    getGit(gitUrl,gitWebUrl);
+    getJenkins(jenkinsUrl);
     getRedmine();
     getCalendar();
 };
