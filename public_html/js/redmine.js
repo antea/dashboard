@@ -11,26 +11,35 @@ var normalPriority = "4";
 var urgentPriority = "6";
 var immediatePriority = "7";
 var redmineTable = "#redmineTable";
+var redmineCheck = Date.now();
 
 function getRedmine() {
     $.getJSON(redmineUrl,
             {'key': redmineKey, 'status_id': statusOngoing}
-    , function(response) {
-        $(redmineTable).empty();
-        var issues = response.issues;
-        for (var i = 0; i < issues.length; i++) {
-            var nameDeveloper = issues[i].assigned_to.name;
-            var subject = issues[i].subject;
-            var project = issues[i].project.name;
-            var projectNoSpace = project.replace(/ /g, "_");
-            var priority = issues[i].priority.id;
-            var apendRow = function() {
-                $("#" + projectNoSpace).after("<tr><td></td><td  class=" + colorPriority(priority) + ">" + subject + "</td><td  class=" + colorPriority(priority) + ">" + nameDeveloper + "</td></tr>");
-            };
-            if ($.find("#" + projectNoSpace).length !== 0) {
-                apendRow();
-            } else {
-                $(redmineTable).append("<tr id=\"" + projectNoSpace + "\"><td><strong>" + project + "</strong></td><td class=" + colorPriority(priority) + ">" + subject + "</td><td class=" + colorPriority(priority) + ">" + nameDeveloper + "</td></tr>");
+    , function(response, status) {
+        if (status !== "success") {
+            return;
+        } else {
+            redmineCheck = Date.now();
+            $(redmineTable).empty();
+            var issues = response.issues;
+            for (var i = 0; i < issues.length; i++) {
+                var nameDeveloper = issues[i].assigned_to.name;
+                var subject = issues[i].subject;
+                var project = issues[i].project.name;
+                var projectNoSpace = project.replace(/ /g, "_");
+                var priority = issues[i].priority.id;
+                var appendRow = function() {
+                    $("#" + projectNoSpace).after("<tr><td></td><td  class=" + colorPriority(priority)
+                            + ">" + subject + "</td><td  class=" + colorPriority(priority) + ">" + nameDeveloper + "</td></tr>");
+                };
+                if ($.find("#" + projectNoSpace).length !== 0) {
+                    appendRow();
+                } else {
+                    $(redmineTable).append("<tr id=\"" + projectNoSpace + "\"><td><strong>"
+                            + project + "</strong></td><td class=" + colorPriority(priority) + ">" + subject
+                            + "</td><td class=" + colorPriority(priority) + ">" + nameDeveloper + "</td></tr>");
+                }
             }
         }
     });

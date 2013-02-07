@@ -1,4 +1,4 @@
-<html>
+﻿<html>
     <head>
         <title>Dashboard</title>
         <link href="img/anteaLogo.png" rel="icon">
@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="row-fluid">
-                <div class="span3">
+                <div class="span2">
                     <ul class="nav nav-list" id="navbar">
                         <li class="nav-header"><strong>Lista Informazioni</strong></li>
                         <li class="active" id="redmineDivLi"><a>Segnalazioni in corso</a></li>
@@ -32,24 +32,33 @@
                     </div>
                     <hr/>
                     <div><h2 id="clock"></h2></div>
+                    <div>
+                        <h5>Ultimo aggiornamento:</h5>
+                        <ul>
+                            <li id="redmineCheck"></li>
+                            <li id="gitCheck"></li>
+                            <li id="jenkinsCheck"></li>
+                            <li id="calendarCheck"></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="span9">
+                <div class="span10">
                     <div id="myCarousel" class="carousel slide">
                         <!-- Carousel items -->
                         <div class="carousel-inner">
                             <div class="active item" id="redmineDiv">
                                 <div class="row-fluid">
                                     <div class="span12" id="redmineInnerDiv">
-                                <table class="table table-condensed">
-                                    <thead>
-                                        <tr>
-                                            <th>Progetto</th>
-                                            <th>Segnalazione</th>
-                                            <th>Assegnazione</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="redmineTable"></tbody>
-                                </table>
+                                        <table class="table table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <th>Progetto</th>
+                                                    <th>Segnalazione</th>
+                                                    <th>Assegnazione</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="redmineTable"></tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -65,13 +74,6 @@
 
                             <div class="item" id="jenkinsDiv">
                                 <table class="table table-condensed">
-                                    <thead>
-                                        <tr>
-                                            <th>Build</th>
-                                            <th>Data</th>
-                                            <th>Stato</th>
-                                        </tr>
-                                    </thead>
                                     <tbody id="jenkinsTable"></tbody>
                                 </table>
                             </div>

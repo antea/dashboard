@@ -8,8 +8,9 @@
 var scope = "https://www.googleapis.com/auth/calendar";
 var ongoingEventsDiv = "#OngoingEventsDiv";
 var nextEventsDiv = "#NextEventsDiv";
+var calendarCheck = Date.now();
 
-function getCalendar() {
+function authorizeClient() {
     var config = {
         'client_id': clientId,
         'scope': scope
@@ -58,14 +59,16 @@ function makeNextEventsRequest() {
         var request = gapi.client.calendar.events.list({
             'calendarId': calendarId,
             'timeMin': now,
+            'maxResults': 6,
             'fields': 'items(summary,start,end)',
             'orderBy': 'startTime',
             'singleEvents': 'true'
         });
         request.execute(function(response) {
+            calendarCheck = Date.now();
             var items = response.items;
             if (items) {
-                if (items.length >= 6) {
+                if (items.length === 6) {
                     appendEvents(items, 6);
                 } else {
                     appendEvents(items, items.length);
