@@ -4,22 +4,23 @@
  */
 
 var jenkinsCheck = (new Date()).getTime();
-var found = [];
-function build() {
-    this.name;
-    this.color;
-    this.date;
-    this.state;
-}
 
-getJenkins = function(url) {
+getJenkins = function(url, urlDate) {
+    var found = [];
+    
+    function build() {
+        this.name;
+        this.color;
+        this.date;
+        this.state;
+    }
+    
     $.getJSON(url, function(data, textStatus) {
         if (textStatus !== "success") {
             return;
         } else {
             jenkinsCheck = (new Date()).getTime();
             var obj = data;
-            var j = 0;
             for (i = 0; i < obj.jobs.length; i++) {
                 var jobColor = obj.jobs[i].color;
                 found[i] = new build();
@@ -53,10 +54,7 @@ getJenkins = function(url) {
             }
         }
     });
-};
-
-getJenkinsDate = function(url) {
-    $.get(url, function(xml) {
+    $.get(urlDate, function(xml) {
         var $xml = $(xml);
         $xml.find("entry").each(function(index) {
             $this = $(this);

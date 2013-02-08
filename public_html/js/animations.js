@@ -55,31 +55,27 @@ document.getElementById("calendarDivLi").onclick = function() {
 };
 
 var callMethods = function() {
-    getCommit(gitUrl);
-    getBranch(gitWebUrl);
-    getJenkins(jenkinsUrl);
-    getJenkinsDate(jenkinsUrlDate);
+    getGit(gitUrl,gitWebUrl);
+    getJenkins(jenkinsUrl, jenkinsUrlDate);
     getRedmine();
     makeNextEventsRequest();
 };
-window.setInterval("callMethods()", "1000");
+window.setInterval("callMethods()", "600000");
 
 var appendCheck = function() {
     var time = Date.now();
     $("#redmineCheck").empty();
     $("#redmineCheck").append("Redmine: " + (((time - redmineCheck) / 60000).toFixed(0)) + " minuti fa");
     $("#gitCheck").empty();
-    $("#gitCheck").append("Git: " + (((time - commitCheck) / 60000).toFixed(0)) + " minuti fa");
+    $("#gitCheck").append("Git: " + (((time - gitCheck) / 60000).toFixed(0)) + " minuti fa");
     $("#jenkinsCheck").empty();
     $("#jenkinsCheck").append("Jenkins: " + (((time - jenkinsCheck) / 60000).toFixed(0)) + " minuti fa");
     $("#calendarCheck").empty();
     $("#calendarCheck").append("Calendario: " + (((time - calendarCheck) / 60000).toFixed(0)) + " minuti fa");
 };
 window.onload = function() {
-    getCommit(gitUrl);
-    getBranch(gitWebUrl);
-    getJenkins(jenkinsUrl);
-    getJenkinsDate(jenkinsUrlDate);
+    getGit(gitUrl, gitWebUrl);
+    getJenkins(jenkinsUrl, jenkinsUrlDate);
     getRedmine();
     authorizeClient();
     appendCheck();
