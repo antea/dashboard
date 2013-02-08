@@ -23,6 +23,7 @@
                         <li class="nav-header"><strong>Lista Informazioni</strong></li>
                         <li class="active" id="redmineDivLi"><a>Segnalazioni in corso</a></li>
                         <li id="gitDivLi"><a>Git</a></li>
+                        <li id="svnDivLi"><a>Subversion</a></li>
                         <li id="jenkinsDivLi"><a>Jenkins</a></li>
                         <li id="calendarDivLi"><a>Calendario</a></li>
                     </ul>
@@ -37,6 +38,7 @@
                         <ul>
                             <li id="redmineCheck"></li>
                             <li id="gitCheck"></li>
+                            <li id="svnCheck"></li>
                             <li id="jenkinsCheck"></li>
                             <li id="calendarCheck"></li>
                         </ul>
@@ -70,6 +72,19 @@
                                     <div class="span5 well" id="branchDiv">
                                     </div>                                        
                                 </div>
+                            </div>
+
+                            <div class="item" id ="svnDiv">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>Log</th>
+                                            <th>Autore</th>
+                                            <th>Data</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="svnTable"></tbody>
+                                </table>
                             </div>
 
                             <div class="item" id="jenkinsDiv">
@@ -110,6 +125,7 @@
         <script src="js/redmine.js"></script>
         <script src="js/jenkins.js"></script>
         <script src="js/git.js"></script>
+        <script src="js/svn.js"></script>
         <script src="js/animations.js"></script>
     </body>
 </html>

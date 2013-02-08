@@ -24,7 +24,12 @@ $(".carousel").on("slid", function() {
     $("#navbar > li").removeClass("active");
     $("#" + attr).addClass("active");
     $("#progres").attr("id", "progress");
+    if ($("#myCarousel").height() > 550) {
+        var scrollMax = $("#myCarousel").height() - 550;
+        $("html, body").animate({ scrollTop: scrollMax },INTERVAL);
+    }
 });
+
 var valutaPercentuale = function() {
     var width = $('#progress').width();
     var widthMax = $('#progContainer').width();
@@ -47,17 +52,21 @@ document.getElementById("redmineDivLi").onclick = function() {
 document.getElementById("gitDivLi").onclick = function() {
     $('.carousel').carousel(1);
 };
-document.getElementById("jenkinsDivLi").onclick = function() {
+document.getElementById("svnDivLi").onclick = function() {
     $('.carousel').carousel(2);
 };
-document.getElementById("calendarDivLi").onclick = function() {
+document.getElementById("jenkinsDivLi").onclick = function() {
     $('.carousel').carousel(3);
+};
+document.getElementById("calendarDivLi").onclick = function() {
+    $('.carousel').carousel(4);
 };
 
 var callMethods = function() {
     getGit(gitUrl,gitWebUrl);
     getJenkins(jenkinsUrl, jenkinsUrlDate);
     getRedmine();
+    getSvn();
     makeNextEventsRequest();
 };
 window.setInterval("callMethods()", "600000");
@@ -68,6 +77,8 @@ var appendCheck = function() {
     $("#redmineCheck").append("Redmine: " + (((time - redmineCheck) / 60000).toFixed(0)) + " minuti fa");
     $("#gitCheck").empty();
     $("#gitCheck").append("Git: " + (((time - gitCheck) / 60000).toFixed(0)) + " minuti fa");
+    $("#svnCheck").empty();
+    $("#svnCheck").append("Svn: " + (((time - svnCheck) / 60000).toFixed(0)) + " minuti fa");
     $("#jenkinsCheck").empty();
     $("#jenkinsCheck").append("Jenkins: " + (((time - jenkinsCheck) / 60000).toFixed(0)) + " minuti fa");
     $("#calendarCheck").empty();
@@ -77,6 +88,7 @@ window.onload = function() {
     getGit(gitUrl, gitWebUrl);
     getJenkins(jenkinsUrl, jenkinsUrlDate);
     getRedmine();
+    getSvn();
     authorizeClient();
     appendCheck();
 };

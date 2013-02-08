@@ -35,13 +35,13 @@ function appendEvents(arrayEvents, numberEvents) {
                     " alle " + endTime + "</h4><blockquote><h5>" + summary + "</h5></blockquote></div>");
         } else {
             var startDate = new Date(arrayEvents[i].start.date);
-            var endDate = new Date(arrayEvents[i].end.date).toLocaleDateString();
-            if (startDate === endDate) {
+            var endDate = new Date(arrayEvents[i].end.date);
+            if (startDate.getMonth() === endDate.getMonth() && startDate.getDate()=== endDate.getDate()-1) {
                 $(eventState(startDate)).append("<div class=\"well well-small\"><h4>" + startDate.toLocaleDateString() +
                         "</br></h4><blockquote><h5>" + summary + "</h5></blockquote></div>");
             } else {
                 $(eventState(startDate)).append("<div class=\"well well-small\"><h4>Dal " + startDate.toLocaleDateString() +
-                        " al " + endDate + "</h4><blockquote><h5>" + summary + "</h5></blockquote></div>");
+                        " al " + endDate.toLocaleDateString() + "</h4><blockquote><h5>" + summary + "</h5></blockquote></div>");
             }
         }
     }
