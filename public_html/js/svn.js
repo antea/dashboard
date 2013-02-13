@@ -6,20 +6,32 @@
 var svnCheck = Date.now();
 
 var getSvn = function() {
-    $.get(svnUrl, function(response, statusText) {
+    $.get(svnUrl, callbackSvn(appendSvn));
+};
+
+var callbackSvn = function(howToAppend) {
+    return function(response, statusText) {
         if ("success" === statusText) {
             svnCheck = Date.now();
             var items = $(response).find("item");
             items.each(function(i) {
-                var date = new Date($(this).find("pubDate").text());
-                var author = items[i].childNodes[1].textContent;
-                var log = $(this).find("title").text();
-                $("#svnTable").append("<tr><td>" + date.toLocaleDateString() + " alle " +
-                        date.toLocaleTimeString() + "</td><td>" + log + "</td><td>" + author + "</td></tr>");
+                var item = {
+                    date: new Date($(this).find("pubDate").text()),
+                    author: items[i].childNodes[1].textContent,
+                    log: $(this).find("title").text()
+                };
+                howToAppend(item);
                 if (i === 19) {
                     return false;
                 }
             });
+        } else {
+            return statusText;
         }
-    });
+    };
+};
+
+var appendSvn = function(item) {
+    $("#svnTable").append("<tr><td>" + item.date.toLocaleDateString() + " alle " +
+            item.date.toLocaleTimeString() + "</td><td>" + item.log + "</td><td>" + item.author + "</td></tr>");
 };

@@ -20,39 +20,6 @@ function authorizeClient() {
     });
 }
 
-function appendEvents(arrayEvents, numberEvents) {
-    $(ongoingEventsDiv).css("display", "block");
-    $(nextEventsDiv).css("display", "block");
-    clearDiv();
-    for (var i = 0; i < numberEvents; i++) {
-        var summary = arrayEvents[i].summary;
-        var startDateTime = arrayEvents[i].start.dateTime;
-        if (startDateTime) {
-            var date = new Date(startDateTime).toLocaleDateString();
-            var startTime = startDateTime.substr(11, 5);
-            var endTime = arrayEvents[i].end.dateTime.substr(11, 5);
-            $(eventState(startDateTime)).append("<div class=\"well well-small\"><h4>" + date + " dalle " + startTime +
-                    " alle " + endTime + "</h4><blockquote><h5>" + summary + "</h5></blockquote></div>");
-        } else {
-            var startDate = new Date(arrayEvents[i].start.date);
-            var endDate = new Date(arrayEvents[i].end.date);
-            if (startDate.getMonth() === endDate.getMonth() && startDate.getDate()=== endDate.getDate()-1) {
-                $(eventState(startDate)).append("<div class=\"well well-small\"><h4>" + startDate.toLocaleDateString() +
-                        "</br></h4><blockquote><h5>" + summary + "</h5></blockquote></div>");
-            } else {
-                $(eventState(startDate)).append("<div class=\"well well-small\"><h4>Dal " + startDate.toLocaleDateString() +
-                        " al " + endDate.toLocaleDateString() + "</h4><blockquote><h5>" + summary + "</h5></blockquote></div>");
-            }
-        }
-    }
-    if ($(ongoingEventsDiv).find('div').length === 3) {
-        $(ongoingEventsDiv).css("display", "none");
-    }
-    if ($(nextEventsDiv).find('div').length === 3) {
-        $(nextEventsDiv).css("display", "none");
-    }
-}
-
 function makeNextEventsRequest() {
     var now = new Date().toISOString();
     gapi.client.load('calendar', 'v3', function() {
@@ -64,20 +31,67 @@ function makeNextEventsRequest() {
             'orderBy': 'startTime',
             'singleEvents': 'true'
         });
-        request.execute(function(response) {
-            calendarCheck = Date.now();
-            var items = response.items;
-            if (items) {
-                if (items.length === 6) {
-                    appendEvents(items, 6);
-                } else {
-                    appendEvents(items, items.length);
-                }
-            }
-        });
-
+        request.execute(callbackGoogleRequest(appendGoogleEvents));
     });
 }
+
+var callbackGoogleRequest = function(appendGoogleToHtml) {
+    return function(response) {
+        $(ongoingEventsDiv).css("display", "block");
+        $(nextEventsDiv).css("display", "block");
+        clearDiv();
+        calendarCheck = Date.now();
+        var items = response.items;
+        if (items) {
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].start.dateTime) {
+                    var event = {
+                        summary: items[i].summary,
+                        startDateTime: items[i].start.dateTime,
+                        date: new Date(items[i].start.dateTime).toLocaleDateString(),
+                        startTime: items[i].start.dateTime.substr(11, 5),
+                        endTime: items[i].end.dateTime.substr(11, 5)
+                    };
+                    appendGoogleToHtml(event);
+                } else {
+                    var event = {
+                        summary: items[i].summary,
+                        startDate: new Date(items[i].start.date),
+                        endDate: new Date(items[i].end.date)
+                    };
+                    appendGoogleToHtml(event);
+                }
+            }
+            if ($(ongoingEventsDiv).find('div').length === 3) {
+                $(ongoingEventsDiv).css("display", "none");
+            }
+            if ($(nextEventsDiv).find('div').length === 3) {
+                $(nextEventsDiv).css("display", "none");
+            }
+        }
+    };
+};
+
+function appendGoogleEvents(googleEvent) {
+    if (googleEvent.startDateTime) {
+        $(eventState(googleEvent.startDateTime)).append("<div class=\"well well-small\"><h4>" +
+                googleEvent.date + " dalle " + googleEvent.startTime + " alle " + googleEvent.endTime +
+                "</h4><blockquote><h5>" + googleEvent.summary + "</h5></blockquote></div>");
+    } else {
+        if (googleEvent.startDate.getMonth() === googleEvent.endDate.getMonth() &&
+                googleEvent.startDate.getDate() === googleEvent.endDate.getDate() - 1) {
+            $(eventState(googleEvent.startDate)).append("<div class=\"well well-small\"><h4>" +
+                    googleEvent.startDate.toLocaleDateString() + "</br></h4><blockquote><h5>" +
+                    googleEvent.summary + "</h5></blockquote></div>");
+        } else {
+            googleEvent.endDate.setDate(googleEvent.endDate.getDate() - 1);
+            $(eventState(googleEvent.startDate)).append("<div class=\"well well-small\"><h4>Dal " +
+                    googleEvent.startDate.toLocaleDateString() + " al " + googleEvent.endDate.toLocaleDateString() +
+                    "</h4><blockquote><h5>" + googleEvent.summary + "</h5></blockquote></div>");
+        }
+    }
+}
+
 var eventState = function(startDate) {
     var now = new Date();
     var date = new Date(startDate);
@@ -90,9 +104,9 @@ var eventState = function(startDate) {
     }
 };
 
-var clearDiv = function(){
-    $(ongoingEventsDiv+"0").empty();
-    $(ongoingEventsDiv+"1").empty();
-    $(nextEventsDiv+"0").empty();
-    $(nextEventsDiv+"1").empty();
+var clearDiv = function() {
+    $(ongoingEventsDiv + "0").empty();
+    $(ongoingEventsDiv + "1").empty();
+    $(nextEventsDiv + "0").empty();
+    $(nextEventsDiv + "1").empty();
 };

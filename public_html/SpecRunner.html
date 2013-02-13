@@ -1,59 +1,61 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-  "http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-  <title>Jasmine Spec Runner</title>
+    <head>
+        <title>Jasmine Spec Runner</title>
 
-  <link rel="shortcut icon" type="image/png" href="lib/jasmine-1.3.1/jasmine_favicon.png">
-  <link rel="stylesheet" type="text/css" href="css/jasmine.css">
-  <script type="text/javascript" src="thirdpart_js/jasmine.js"></script>
-  <script type="text/javascript" src="thirdpart_js/jasmine-html.js"></script>
+        <link rel="shortcut icon" type="image/png" href="lib/jasmine-1.3.1/jasmine_favicon.png">
+        <link rel="stylesheet" type="text/css" href="css/jasmine.css">
+        <script type="text/javascript" src="thirdpart_js/jasmine.js"></script>
+        <script type="text/javascript" src="thirdpart_js/jasmine-html.js"></script>
 
-  <!-- include source files here... -->
-  <script type="text/javascript" src="js/config.js"></script>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-  <script type="text/javascript" src="js/git.js"></script>
-  <script type="text/javascript" src="js/jenkins.js"></script>
-  <script type="text/javascript" src="js/redmine.js"></script>
-  <script type="text/javascript" src="js/googleCalendar.js"></script>
-  
-  <!-- include spec files here... -->
-  <script type="text/javascript" src="spec/gitSpec.js"></script>
-  <script type="text/javascript" src="spec/jenkinsSpec.js"></script>
-  <script type="text/javascript" src="spec/redmineSpec.js"></script>
-  <script type="text/javascript" src="spec/googleSpec.js"></script>
+        <!-- include source files here... -->
+        <script type="text/javascript" src="js/config.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+        <script type="text/javascript" src="js/git.js"></script>
+        <script type="text/javascript" src="js/svn.js"></script>
+        <script type="text/javascript" src="js/jenkins.js"></script>
+        <script type="text/javascript" src="js/redmine.js"></script>
+        <script type="text/javascript" src="js/googleCalendar.js"></script>
 
-  <script type="text/javascript">
-    (function() {
-      var jasmineEnv = jasmine.getEnv();
-      jasmineEnv.updateInterval = 1000;
+        <!-- include spec files here... -->
+        <script type="text/javascript" src="spec/gitSpec.js"></script>
+        <script type="text/javascript" src="spec/jenkinsSpec.js"></script>
+        <script type="text/javascript" src="spec/redmineSpec.js"></script>
+        <script type="text/javascript" src="spec/googleSpec.js"></script>
+        <script type="text/javascript" src="spec/svnSpec.js"></script>
 
-      var htmlReporter = new jasmine.HtmlReporter();
+        <script type="text/javascript">
+            (function() {
+                var jasmineEnv = jasmine.getEnv();
+                jasmineEnv.updateInterval = 1000;
 
-      jasmineEnv.addReporter(htmlReporter);
+                var htmlReporter = new jasmine.HtmlReporter();
 
-      jasmineEnv.specFilter = function(spec) {
-        return htmlReporter.specFilter(spec);
-      };
+                jasmineEnv.addReporter(htmlReporter);
 
-      var currentWindowOnload = window.onload;
+                jasmineEnv.specFilter = function(spec) {
+                    return htmlReporter.specFilter(spec);
+                };
 
-      window.onload = function() {
-        if (currentWindowOnload) {
-          currentWindowOnload();
-        }
-        execJasmine();
-      };
+                var currentWindowOnload = window.onload;
 
-      function execJasmine() {
-        jasmineEnv.execute();
-      }
+                window.onload = function() {
+                    if (currentWindowOnload) {
+                        currentWindowOnload();
+                    }
+                    execJasmine();
+                };
 
-    })();
-  </script>
+                function execJasmine() {
+                    jasmineEnv.execute();
+                }
 
-</head>
+            })();
+        </script>
 
-<body>
-</body>
+    </head>
+
+    <body>
+    </body>
 </html>
