@@ -32,27 +32,27 @@ var parseJenkins = function(json, xml, printFunction) {
         switch (jobColor) {
             case "blue" :
                 found[i].state = "fermo";
-                found[i].label = " <span class=\"label label-info\">Stabile</span> ";
+                found[i].label = " <span class=\"label label-info pull-right\">Stabile</span> ";
                 break;
             case "blue_anime" :
                 found[i].state = "build in corso";
-                found[i].label = " <span class=\"label label-info\">Stabile</span> ";
+                found[i].label = " <span class=\"label label-info pull-right\">Stabile</span> ";
                 break;
             case "red":
                 found[i].state = "fermo";
-                found[i].label = " <span class=\"label label-important\">Danneggiata</span> ";
+                found[i].label = " <span class=\"label label-important pull-right\">Danneggiata</span> ";
                 break;
             case "red_anime":
                 found[i].state = "build in corso";
-                found[i].label = " <span class=\"label label-important\">Danneggiata</span> ";
+                found[i].label = " <span class=\"label label-important pull-right\">Danneggiata</span> ";
                 break;
             case "yellow":
                 found[i].state = "fermo";
-                found[i].label = " <span class=\"label label-warning\">Instabile</span> ";
+                found[i].label = " <span class=\"label label-warning pull-right\">Instabile</span> ";
                 break;
             case "yellow_anime":
                 found[i].state = "build in corso";
-                found[i].label = " <span class=\"label label-warning\">Instabile</span> ";
+                found[i].label = " <span class=\"label label-warning pull-right\">Instabile</span> ";
                 break;
         }
     }

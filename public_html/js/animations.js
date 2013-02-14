@@ -25,6 +25,7 @@ $(".carousel").on("slide", function() {
     window.clearTimeout(TIMEOUT);
     restartBar();
     $("#progress").attr("id", "progres");
+    $("div.carousel-inner").scrollTop(0);
 });
 $(".carousel").on("slid", function() {
     var attr = $(".carousel .active").attr("id");
@@ -32,10 +33,7 @@ $(".carousel").on("slid", function() {
     $("#navbar > li").removeClass("active");
     $("#" + attrList).addClass("active");
     $("#progres").attr("id", "progress");
-    if ($("#" + attr).height() > 560) {
-        var scrollMax = $("#" + attr).height() - 560;
-        $("div.carousel-inner").animate({scrollTop: scrollMax}, INTERVAL - 2000, 'linear');
-    }
+    checkScroll();
 });
 
 var valutaPercentuale = function() {
@@ -101,5 +99,14 @@ window.onload = function() {
     getSvn();
     authorizeClient();
     appendCheck();
+    window.setTimeout("checkScroll()", "2000");
 };
 window.setInterval("appendCheck()", "60000");
+
+var checkScroll = function() {
+    var attr = $(".carousel .active").attr("id");
+    if ($("#" + attr).height() > $("div.carousel-inner").height()) {
+        var scrollMax = $("#" + attr).height() - $("div.carousel-inner").height();
+        $("div.carousel-inner").animate({scrollTop: scrollMax}, INTERVAL/2, 'linear');
+    }
+};
