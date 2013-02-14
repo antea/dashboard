@@ -11,7 +11,7 @@ getJenkins = function(url, urlDate) {
 var printJenkins = function(parsedData) {
     $("#jenkinsTable").empty();
     for (i = 0; i < parsedData.length; i++) {
-        $("#jenkinsTable").append("<tr><td>" + parsedData[i].label + parsedData[i].name + "</td><td>" + parsedData[i].date.toLocaleString() +
+        $("#jenkinsTable").append("<tr><td>" + parsedData[i].label + "</td><td>" + parsedData[i].name + "</td><td>" + parsedData[i].date.toLocaleString() +
                 "</td><td>" + parsedData[i].state + "</td></tr>");
     }
 };
