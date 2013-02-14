@@ -1,13 +1,13 @@
 /* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This js allows the ritrieving data from a git webclient
+ * for the purpose of printing it by appending to a <div>.
  */
 
 var gitCheck = (new Date()).getTime();
 
 getGit = function(urlCommit, urlBranch) {
-    fetch(urlBranch, parseBranch, printBranch);
-    fetch(urlCommit, parseCommit, printCommit);
+    $.get(urlCommit, fetchGit(parseCommit, printCommit));
+    $.get(urlBranch, fetchGit(parseBranch, printBranch));
 };
 
 var printBranch = function(parsedData) {
@@ -45,10 +45,10 @@ var parseBranch = function(data, printFunction) {
             }
         });
         if (i === 4) {
-            printFunction(found);
             return false;
         }
     });
+    printFunction(found);
 };
 
 var printCommit = function(parsedData) {
@@ -72,20 +72,20 @@ var parseCommit = function(data, printFunction) {
 
         parsedData[index] = item;
         if (index === 4) {
-            printFunction(parsedData);
             return false;
         }
     });
+    printFunction(parsedData);
 };
 
-var fetch = function(url, parseFunction, printFunction) {
-    $.get(url, function(data, textStatus) {
+var fetchGit = function(parseFunction, printFunction) {
+    return function(data, textStatus) {
         if (textStatus !== "success") {
-            return;
+            return textStatus;
         } else {
             gitCheck = (new Date()).getTime();
             $data = $(data);
             parseFunction($data, printFunction);
         }
-    });
+    };
 };

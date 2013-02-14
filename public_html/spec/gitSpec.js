@@ -1,6 +1,36 @@
-describe("git", function() {
-    it("contains spec with an expectation", function() {
-        var data = '<?xml version="1.0" encoding="utf-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>mercurio.antea.bogus Git - bbox.git/rss - \'refs/heads/develop\' branch log</title><link>http://gitweb.antea.bogus/?p=bbox.git;a=log;h=refs/heads/develop</link><description>Repository di BBox.</description><language>en</language><managingEditor/><image><url>static/git-logo.png</url><title>mercurio.antea.bogus Git - bbox.git/rss - \'refs/heads/develop\' branch log</title><link>http://gitweb.antea.bogus/?p=bbox.git;a=log;h=refs/heads/develop</link></image><pubDate>Fri, 8 Feb 2013 07:36:39 +0000</pubDate><lastBuildDate>Fri, 8 Feb 2013 07:36:39 +0000</lastBuildDate><generator>gitweb v.1.7.8.6/1.7.8.6</generator><item><title>Rimosso il cachetime dalla DownloadResource.</title><author>Federico Russo &lt;russo.federico@anteash.com&gt;</author><pubDate>Fri, 8 Feb 2013 07:35:11 +0000</pubDate><guid isPermaLink="true">http://gitweb.antea.bogus/?p=bbox.git;a=commitdiff;h=4c9e5de3ef5e472d643f9b08e3020b89d822cc9e</guid><link>http://gitweb.antea.bogus/?p=bbox.git;a=commitdiff;h=4c9e5de3ef5e472d643f9b08e3020b89d822cc9e</link><description>Rimosso il cachetime dalla DownloadResource.</description><content:encoded><![CDATA[<pre>Rimosso il cachetime dalla DownloadResource.</pre><ul><li>[<a title="diff" href="http://gitweb.antea.bogus/?p=bbox.git;a=blobdiff;f=anagrafiche/anagrafiche-libs/src/main/java/it/imc/vaadin/ui/bom/DownloadResourceHelper.java;fp=anagrafiche/anagrafiche-libs/src/main/java/it/imc/vaadin/ui/bom/DownloadResourceHelper.java;h=7818fe13902f15239199c6b0bbcd62972b03d458;hp=17b988f13dc899d199ff27d27c10df65d77833dd;hb=4c9e5de3ef5e472d643f9b08e3020b89d822cc9e;hpb=24284658b0697848db07f0eb8e205cc6ebef0555">D</a><a title="history" href="http://gitweb.antea.bogus/?p=bbox.git;a=history;f=anagrafiche/anagrafiche-libs/src/main/java/it/imc/vaadin/ui/bom/DownloadResourceHelper.java;h=4c9e5de3ef5e472d643f9b08e3020b89d822cc9e">H</a>] anagrafiche/anagrafiche-libs/src/main/java/it/imc/vaadin/ui/bom/DownloadResourceHelper.java</li></ul>]]></content:encoded></item></channel></rss>';
-        parseCommit(data, print);
+/* 
+ * This spec tests the parsing logic of git.js
+ * It also tests the correct behavior of the fetching logic
+ * in case of server malfunction.
+ */
+describe("Git request", function() {
+    describe("If response status is \"success\"", function() {
+        var commitData;
+        var branchData;
+        
+        beforeEach(function() {
+            commitData = $.parseXML('<?xml version="1.0" encoding="utf-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><item><title>Rimosso il cachetime dalla DownloadResource.</title><author>Federico Russo &lt;russo.federico@anteash.com&gt;</author><pubDate>Fri, 8 Feb 2013 07:35:11 +0000</pubDate></item></rss>');
+            
+            branchData = $.parseXML('<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"><body><table class="heads"><tr class="dark"><td><i>3 hours ago</i></td><td><a class="list name" href="/?p=bbox.git;a=shortlog;h=refs/heads/develop">develop</a></td><td class="link"><a href="/?p=bbox.git;a=shortlog;h=refs/heads/develop">shortlog</a> | <a href="/?p=bbox.git;a=log;h=refs/heads/develop">log</a> | <a href="/?p=bbox.git;a=tree;h=refs/heads/develop;hb=refs/heads/develop">tree</a></td></tr></table></body></html>');
+        });
+
+        it("should transform data's array into object", function() {
+            parseCommit($(commitData), function(parsedData) {
+                expect(parsedData[0].title).toEqual("Rimosso il cachetime dalla DownloadResource.");
+                expect(parsedData[0].author).toEqual("Federico Russo");
+                expect(parsedData[0].pubDate).toEqual(new Date("Fri, 8 Feb 2013 07:35:11 +0000"));
+            });
+            parseBranch($(branchData), function(parsedData) {
+                expect((parsedData[0].name).text()).toEqual("develop");
+                expect((parsedData[0].date).text()).toEqual("3 ore fa");
+            });
+        });
+    });
+
+    describe("If response status isn't \"success\"", function() {
+        it("should return the status.", function() {
+            var gitFetch = fetchGit();
+            expect(gitFetch("dummy data", "failed")).toEqual("failed");
+        });
     });
 });
