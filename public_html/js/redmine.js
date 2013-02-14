@@ -50,31 +50,30 @@ var appendRedmineToHtml = function(issue) {
 };
 
 var appendRow = function(projectNoSpace, issue) {
-    $("#" + projectNoSpace).after("<tr><td></td><td  class=" + colorPriority(issue.priority)
-            + ">" + issue.subject + "</td><td  class=" + colorPriority(issue.priority) + ">"
+    $("#" + projectNoSpace).after("<tr><td></td><td>" + issue.subject + " " +colorPriority(issue.priority)+"</td><td>"
             + issue.nameDeveloper + "</td></tr>");
 };
 
 var appendFirstRow = function(projectNoSpace, firstIssue) {
     $(redmineTable).append("<tr id=\"" + projectNoSpace + "\"><td><strong>"
-            + firstIssue.project + "</strong></td><td class=" + colorPriority(firstIssue.priority) + ">"
-            + firstIssue.subject + "</td><td class=" + colorPriority(firstIssue.priority) + ">"
+            + firstIssue.project + "</strong></td><td>"
+            + firstIssue.subject + " " +colorPriority(firstIssue.priority) + "</td><td>"
             + firstIssue.nameDeveloper + "</td></tr>");
 };
 
 function colorPriority(num) {
     switch (num) {
         case eval(lowPriority) :
-            return "\"lowPriority\"";
+            return "<span class =\"label label-info\">Bassa priorità</span>";
             break;
         case eval(normalPriority) :
-            return "\"normalPriority\"";
+            return "";
             break;
         case eval(urgentPriority) :
-            return "\"urgentPriority\"";
+            return "<span class =\"label label-warning\">Urgente</span>";
             break;
         case eval(immediatePriority) :
-            return "\"immediatePriority\"";
+            return "<span class =\"label label-important\">Immediata</span>";
             break;
     }
 }

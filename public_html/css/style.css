@@ -1,5 +1,6 @@
 div.carousel-inner {
-    min-height: 550px;
+    max-height: 560px;
+    overflow-y: hidden;
 }
 .lowPriority{
     background-color: lightblue;
@@ -16,8 +17,20 @@ div.carousel-inner {
 #progress{
     -webkit-animation:myMove; 
     -webkit-animation-timing-function:linear;
+    -o-animation:myMove; 
+    -o-animation-timing-function:linear;
+    -moz-animation:myMove; 
+    -moz-animation-timing-function:linear;
 }
 @-webkit-keyframes myMove{
+    from{width:100%;}
+    to{width:0%;}
+}
+@-moz-keyframes myMove{
+    from{width:100%;}
+    to{width:0%;}
+}
+@-o-keyframes myMove{
     from{width:100%;}
     to{width:0%;}
 }

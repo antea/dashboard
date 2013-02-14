@@ -8,25 +8,33 @@ var TIMEOUT;
 $('.carousel').carousel({
     interval: INTERVAL
 });
+
 $("#progress").css("-webkit-animation-duration", (INTERVAL / 1000) - 0.8 + "s");
+$("#progress").css("-o-animation-duration", (INTERVAL / 1000) - 0.8 + "s");
+$("#progress").css("-moz-animation-duration", (INTERVAL / 1000) - 0.8 + "s");
 $('.carousel').mouseenter(function() {
     window.clearTimeout(TIMEOUT);
     $("#progress").css("-webkit-animation-play-state", "paused");
+    $("#progress").css("-o-animation-play-state", "paused");
+    $("#progress").css("-moz-animation-play-state", "paused");
 });
 $('.carousel').mouseleave(function() {
     TIMEOUT = setTimeout("restartBar()", valutaPercentuale());
 });
 $(".carousel").on("slide", function() {
+    window.clearTimeout(TIMEOUT);
+    restartBar();
     $("#progress").attr("id", "progres");
 });
 $(".carousel").on("slid", function() {
-    var attr = $(".carousel .active").attr("id") + "Li";
+    var attr = $(".carousel .active").attr("id");
+    var attrList = attr + "Li";
     $("#navbar > li").removeClass("active");
-    $("#" + attr).addClass("active");
+    $("#" + attrList).addClass("active");
     $("#progres").attr("id", "progress");
-    if ($("#myCarousel").height() > 550) {
-        var scrollMax = $("#myCarousel").height() - 550;
-        $("html, body").animate({ scrollTop: scrollMax },INTERVAL);
+    if ($("#" + attr).height() > 560) {
+        var scrollMax = $("#" + attr).height() - 560;
+        $("div.carousel-inner").animate({scrollTop: scrollMax}, INTERVAL - 2000, 'linear');
     }
 });
 
@@ -37,6 +45,8 @@ var valutaPercentuale = function() {
 };
 var restartBar = function() {
     $("#progress").css("-webkit-animation-play-state", "running");
+    $("#progress").css("-o-animation-play-state", "running");
+    $("#progress").css("-moz-animation-play-state", "running");
 };
 
 var clock = function() {
@@ -63,7 +73,7 @@ document.getElementById("calendarDivLi").onclick = function() {
 };
 
 var callMethods = function() {
-    getGit(gitUrl,gitWebUrl);
+    getGit(gitUrl, gitWebUrl);
     getJenkins(jenkinsUrl, jenkinsUrlDate);
     getRedmine();
     getSvn();
