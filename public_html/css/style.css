@@ -42,7 +42,7 @@ div.well{
     background-color: #cc0000;
     color: white;
 }
-#navbar > li > a{
+#navbar > li > a, i{
     color: #cc0000;
     cursor: pointer;
 }

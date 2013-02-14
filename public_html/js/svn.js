@@ -12,6 +12,7 @@ var getSvn = function() {
 var callbackSvn = function(howToAppend) {
     return function(response, statusText) {
         if ("success" === statusText) {
+            $("#svnTable").empty();
             svnCheck = Date.now();
             var items = $(response).find("item");
             items.each(function(i) {

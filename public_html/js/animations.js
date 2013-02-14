@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-var INTERVAL = 20000;
+var INTERVAL = 30000;
 var TIMEOUT;
 
 $('.carousel').carousel({
@@ -76,8 +76,9 @@ var callMethods = function() {
     getRedmine();
     getSvn();
     makeNextEventsRequest();
+    window.setTimeout("appendCheck()", "2000")
 };
-window.setInterval("callMethods()", "600000");
+window.setInterval("callMethods()", "900000");
 
 var appendCheck = function() {
     var time = Date.now();
@@ -93,12 +94,13 @@ var appendCheck = function() {
     $("#calendarCheck").append("Calendario: " + (((time - calendarCheck) / 60000).toFixed(0)) + " minuti fa");
 };
 window.onload = function() {
-    getGit(gitUrl, gitWebUrl);
-    getJenkins(jenkinsUrl, jenkinsUrlDate);
-    getRedmine();
-    getSvn();
+//    getGit(gitUrl, gitWebUrl);
+//    getJenkins(jenkinsUrl, jenkinsUrlDate);
+//    getRedmine();
+//    getSvn();
     authorizeClient();
-    appendCheck();
+    callMethods();
+//    appendCheck();
     window.setTimeout("checkScroll()", "2000");
 };
 window.setInterval("appendCheck()", "60000");
