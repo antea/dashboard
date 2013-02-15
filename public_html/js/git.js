@@ -4,6 +4,8 @@
  */
 
 var gitCheck = (new Date()).getTime();
+var branchAppend = "#branchDiv";
+var commitAppend = "#commitDiv";
 
 getGit = function(urlCommit, urlBranch) {
     $.get(urlCommit, fetchGit(parseCommit, printCommit));
@@ -11,10 +13,10 @@ getGit = function(urlCommit, urlBranch) {
 };
 
 var printBranch = function(parsedData) {
-    $("#branchDiv").empty();
-    $("#branchDiv").append("<h4>Branch più recenti</h4>");
+    $(branchAppend).empty();
+    $(branchAppend).append("<h4>Branch più recenti</h4>");
     for (i = 0; i < parsedData.length; i++) {
-        $("#branchDiv").append("<blockquote><p>" + parsedData[i].name.text() + "</p><p><small>" + parsedData[i].date.text() + "</p></small></blockquote>");
+        $(branchAppend).append("<blockquote><p>" + parsedData[i].name.text() + "</p><p><small>" + parsedData[i].date.text() + "</p></small></blockquote>");
     }
 };
 
@@ -52,10 +54,10 @@ var parseBranch = function(data, printFunction) {
 };
 
 var printCommit = function(parsedData) {
-    $("#commitDiv").empty();
-    $("#commitDiv").append("<h4>Commit più recenti</h4>");
+    $(commitAppend).empty();
+    $(commitAppend).append("<h4>Commit più recenti in develop</h4>");
     for (i = 0; i < parsedData.length; i++) {
-        $("#commitDiv").append("<blockquote><p>" + parsedData[i].title + "</p>" + "<p><small>" +
+        $(commitAppend).append("<blockquote><p>" + parsedData[i].title + "</p>" + "<p><small>" +
                 parsedData[i].author + " il " + parsedData[i].pubDate.toLocaleString() + ".</p></small></blockquote>");
     }
 };

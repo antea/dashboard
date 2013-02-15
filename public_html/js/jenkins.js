@@ -1,17 +1,18 @@
 /* 
  * This js allows the ritrieving data from a jenkins webclient
- * for the purpose of printing it by appending to a <div>.
+ * for the purpose of printing it by appending to a <table>.
  */
 
 var jenkinsCheck = (new Date()).getTime();
+var jenkinsAppend = "#jenkinsTable";
 
 getJenkins = function(url, urlDate) {
     $.getJSON(url, fetchJenkins(urlDate, parseJenkins, printJenkins));
 };
 var printJenkins = function(parsedData) {
-    $("#jenkinsTable").empty();
+    $(jenkinsAppend).empty();
     for (i = 0; i < parsedData.length; i++) {
-        $("#jenkinsTable").append("<tr><td>" + parsedData[i].label + "</td><td>" + parsedData[i].name + "</td><td>" + parsedData[i].date.toLocaleString() +
+        $(jenkinsAppend).append("<tr><td>" + parsedData[i].label + "</td><td>" + parsedData[i].name + "</td><td>" + parsedData[i].date.toLocaleString() +
                 "</td><td>" + parsedData[i].state + "</td></tr>");
     }
 };
