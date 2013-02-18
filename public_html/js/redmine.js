@@ -14,7 +14,7 @@ var REDMINE_TABLE = "#redmineTable";
 var redmineCheck = Date.now();
 
 /**
- * This function makes a request to redmine, than call callbackRedmineRequest.
+ * This function makes a request to redmine, then call callbackRedmineRequest.
  * 
  */
 function getRedmine() {
