@@ -80,24 +80,20 @@ var callMethods = function() {
 };
 window.setInterval("callMethods()", "900000");
 
+// Aggiorna le etichette che dicono da quanto non sono aggiornate le pagine del carousel.
 var appendCheck = function() {
     var time = Date.now();
-    $("#redmineCheck").empty();
-    $("#redmineCheck").append("Redmine: " + (((time - redmineCheck) / 60000).toFixed(0)) + " minuti fa");
-    $("#gitCheck").empty();
-    $("#gitCheck").append("Git: " + (((time - gitCheck) / 60000).toFixed(0)) + " minuti fa");
-    $("#svnCheck").empty();
-    $("#svnCheck").append("Svn: " + (((time - svnCheck) / 60000).toFixed(0)) + " minuti fa");
-    $("#jenkinsCheck").empty();
-    $("#jenkinsCheck").append("Jenkins: " + (((time - jenkinsCheck) / 60000).toFixed(0)) + " minuti fa");
-    $("#calendarCheck").empty();
-    $("#calendarCheck").append("Calendario: " + (((time - calendarCheck) / 60000).toFixed(0)) + " minuti fa");
+    $("#redmineCheck").html("Redmine: " + (((time - redmineCheck) / 60000).toFixed(0)) + " minuti fa");
+    $("#gitCheck").html("Git: " + (((time - gitCheck) / 60000).toFixed(0)) + " minuti fa");
+    $("#svnCheck").html("Svn: " + (((time - svnCheck) / 60000).toFixed(0)) + " minuti fa");
+    $("#jenkinsCheck").html("Jenkins: " + (((time - jenkinsCheck) / 60000).toFixed(0)) + " minuti fa");
+    $("#calendarCheck").html("Calendario: " + (((time - calendarCheck) / 60000).toFixed(0)) + " minuti fa");
 };
 window.onload = function() {
     authorizeClient();
     callMethods();
     window.setTimeout("checkScroll()", "2000");
-};
+    };
 window.setInterval("appendCheck()", "60000");
 
 

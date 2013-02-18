@@ -22,40 +22,32 @@ var printBranch = function(parsedData) {
 
 var parseBranch = function(data, printFunction) {
     var found = [];
-    function branch() {
-        this.name;
-        this.date;
-    }
     data.find("tr").each(function(i) {
-        found[i] = new branch();
+        if (i === 5) {
+            return false;
+        }
+        found[i] = {};
         $this = $(this);
         $this.find("td").each(function(j) {
             var $this = $(this);
             if (j === 0) {
                 found[i].date = $this;
-                found[i].date.text(found[i].date.text().replace("months", "mesi"));
-                found[i].date.text(found[i].date.text().replace("month", "mese"));
-                found[i].date.text(found[i].date.text().replace("weeks", "settimane"));
-                found[i].date.text(found[i].date.text().replace("week", "settimana"));
-                found[i].date.text(found[i].date.text().replace("hours", "ore"));
-                found[i].date.text(found[i].date.text().replace("hour", "ora"));
-                found[i].date.text(found[i].date.text().replace("ago", "fa"));
+                found[i].date.text(found[i].date.text().replace("months", "mesi")
+                        .replace("month", "mese").replace("weeks", "settimane")
+                        .replace("week", "settimana").replace("hours", "ore")
+                        .replace("hour", "ora").replace("ago", "fa"));
             }
             else if (j === 1) {
                 found[i].name = $this;
                 return false;
             }
         });
-        if (i === 4) {
-            return false;
-        }
     });
     printFunction(found);
 };
 
 var printCommit = function(parsedData) {
-    $(commitAppend).empty();
-    $(commitAppend).append("<h4>Commit più recenti in develop</h4>");
+    $(commitAppend).html("<h4>Commit più recenti in develop</h4>");
     for (i = 0; i < parsedData.length; i++) {
         $(commitAppend).append("<blockquote><p>" + parsedData[i].title + "</p>" + "<p><small>" +
                 parsedData[i].author + " il " + parsedData[i].pubDate.toLocaleString() + ".</p></small></blockquote>");
@@ -65,17 +57,15 @@ var printCommit = function(parsedData) {
 var parseCommit = function(data, printFunction) {
     var parsedData = [];
     data.find("item").each(function(index) {
+        if (index === 5) {
+            return false;
+        }
         var $this = $(this);
-        var item = {
+        parsedData[index] = {
             title: $this.find("title").text(),
             pubDate: new Date($this.find("pubDate").text()),
             author: $this.find("author").text().split(" <")[0]
         };
-
-        parsedData[index] = item;
-        if (index === 4) {
-            return false;
-        }
     });
     printFunction(parsedData);
 };
