@@ -15,7 +15,7 @@ var calendarCheck = Date.now();
  * makeNextEventsRequest.
  * 
  */
-function authorizeClient() {
+function authorizeGoogleClient() {
     var config = {
         'client_id': clientId,
         'scope': SCOPE
