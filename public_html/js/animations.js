@@ -87,7 +87,7 @@ var clock = function() {
 
 //-----------NAVLIST------------
 
-var menageNavlistAction = function() {
+var manageNavlistAction = function() {
     document.getElementById("redmineDivLi").onclick = function() {
         $('.carousel').carousel(0);
     };
@@ -156,7 +156,7 @@ window.onload = function() {
     callRequestMethods();
     startCarousel();
     startProgressBar();
-    menageNavlistAction();
+    manageNavlistAction();
     window.setTimeout("checkScroll()", "2000");
     window.setInterval("checkElapsedTime()", "60000");
     window.setInterval("clock()", "1000");

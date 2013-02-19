@@ -24,11 +24,13 @@ function getRedmine() {
 }
 
 /**
- * Returns a function that transform a data's array into an object. This function
- * was made to separate logic from data retrieving to test it.
+ * Returns a function that transform a data's array into an object. If the request is 
+ * not success the function return the status of server's response.
+ * 
+ * This function was made to separate logic from data retrieving to test it.
  * 
  * @param {function} howToappend is a function that explain what to do with the 
- * data processed and should have 1 parameter.
+ * data processed.
  * @returns {function} a function that transform a data's array into an object
  */
 var callbackRedmineRequest = function(howToappend) {
@@ -57,7 +59,7 @@ var callbackRedmineRequest = function(howToappend) {
  * It calls appendRow or appendFirstRow if the object is the first or not of the specified
  * project.
  * 
- * @param {object} issue: the object to append
+ * @param {object} issue the object to append
  */
 var appendRedmineToHtml = function(issue) {
     var projectNoSpace = issue.project.replace(/ /g, "_");
@@ -102,3 +104,4 @@ function colorPriority(num) {
             break;
     }
 }
+;
