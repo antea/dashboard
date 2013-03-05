@@ -37,8 +37,8 @@ var callbackSvnRequest = function(howToAppend) {
                 }
                 var item = {
                     date: new Date($(this).find("pubDate").text()),
-                    author: items[i].childNodes[1].textContent,
-                    log: $(this).find("title").text()
+                    author: items[i].childNodes[1] && items[i].childNodes[1].textContent,
+                    log: $(this).find("title") && $(this).find("title").text()
                 };
                 howToAppend(item);
             });

@@ -41,10 +41,10 @@ var callbackRedmineRequest = function(howToappend) {
             var issues = response.issues;
             issues.forEach(function(arrayElement) {
                 var issue = {
-                    nameDeveloper: arrayElement.assigned_to.name,
+                    nameDeveloper: arrayElement.assigned_to && arrayElement.assigned_to.name,
                     subject: arrayElement.subject,
-                    project: arrayElement.project.name,
-                    priority: arrayElement.priority.id
+                    project: arrayElement.project && arrayElement.project.name,
+                    priority: arrayElement.priority && arrayElement.priority.id
                 };
                 howToappend(issue);
             });
