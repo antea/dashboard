@@ -42,6 +42,7 @@ var callbackRedmineRequest = function(howToappend) {
             issues.forEach(function(arrayElement) {
                 var issue = {
                     nameDeveloper: arrayElement.assigned_to && arrayElement.assigned_to.name,
+                    id: arrayElement.id,
                     subject: arrayElement.subject,
                     project: arrayElement.project && arrayElement.project.name,
                     priority: arrayElement.priority && arrayElement.priority.id
@@ -71,13 +72,14 @@ var appendRedmineToHtml = function(issue) {
 };
 
 var appendRow = function(projectNoSpace, issue) {
-    $("#" + projectNoSpace).after("<tr><td></td><td>" + issue.subject + " " + colorPriority(issue.priority) + "</td><td>"
+    $("#" + projectNoSpace).after("<tr><td></td><td>" +issue.id+ "</td><td>" + issue.subject + " " + colorPriority(issue.priority) + "</td><td>"
             + issue.nameDeveloper + "</td></tr>");
 };
 
 var appendFirstRow = function(projectNoSpace, firstIssue) {
     $(REDMINE_TABLE).append("<tr id=\"" + projectNoSpace + "\"><td><strong>"
             + firstIssue.project + "</strong></td><td>"
+            + firstIssue.id + "</td><td>"
             + firstIssue.subject + " " + colorPriority(firstIssue.priority) + "</td><td>"
             + firstIssue.nameDeveloper + "</td></tr>");
 };
