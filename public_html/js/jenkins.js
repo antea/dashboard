@@ -17,7 +17,7 @@ getJenkins = function(url, urlDate) {
     };
 
     var parseJenkins = function(json, xml, printFunction) {
-        var found = []; //Array da popolare con i dati trovati, da passare alla funzione di stampa
+        var found = []; //Oggetto da popolare con i dati trovati, da passare alla funzione di stampa
         var $json = $(json.jobs);
         $json.each(function(i) {
             found[i] = {};
@@ -47,6 +47,14 @@ getJenkins = function(url, urlDate) {
                 case "yellow_anime":
                     found[i].state = "build in corso";
                     found[i].label = " <span class=\"label label-warning pull-right\">Instabile</span> ";
+                    break;
+                case "aborted":
+                    found[i].state = "fermo";
+                    found[i].label = " <span class=\"label pull-right\">Build mai completata</span> ";
+                    break;
+                case "aborted_anime":
+                    found[i].state = "build in corso";
+                    found[i].label = " <span class=\"label pull-right\">Build mai completata</span> ";
                     break;
             }
         });
